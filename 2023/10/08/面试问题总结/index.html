@@ -9,7 +9,7 @@
     
     <title>
         
-            周预算计划 |
+            面试问题总结 |
         
         qiushui‘s blog
     </title>
@@ -136,7 +136,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">周预算计划</span>
+            <span class="title-hover-animation">面试问题总结</span>
         </div>
 
         
@@ -154,7 +154,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2023-10-07 15:54:23
+        <i class="fas fa-edit"></i>&nbsp;2023-10-08 13:27:51
     </span>
     
     
@@ -175,16 +175,12 @@
         
 
         <div class="article-content markdown-body">
-            <p>10.8 - 10.14</p>
-<p>生活 ：饭卡200 （暂时卡上余额100）</p>
-<p>购物： 无需求不购物（衣服裤子可以除外）</p>
-<p>零食：超市消费一周30</p>
-<p>咖啡：22（差不多一周都有四杯）</p>
-<p>网购零食：30</p>
-<p>10月月需求</p>
-<p>无需求不出去吃，如果有必要，经考虑后可以计算</p>
-<p>网费：50</p>
-<p>地铁：50</p>
+            <h3 id="2023-10-8-如何理解多态，多态是什么"><a href="#2023-10-8-如何理解多态，多态是什么" class="headerlink" title="2023.10.8 如何理解多态，多态是什么"></a>2023.10.8 如何理解多态，多态是什么</h3><p>定义：为了节省内存空间，而且代码更整齐美观，是指不同的对象，对相同的方法做出不同的相应。（就是对于父同一个方法，不同子类调用同一个方法出现不同的方法），</p>
+<p>实现方法：父类或接口定义的引用变量可以指向子类或具体实现类的实例对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">cat</span> <span class="keyword">implements</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;猫吃鱼&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">dog</span> <span class="keyword">implements</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;狗吃肉&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">animalImp</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Animal</span> <span class="variable">animal</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">cat</span>();</span><br><span class="line">        animal.eat();</span><br><span class="line">        animal = <span class="keyword">new</span> <span class="title class_">dog</span>();</span><br><span class="line">        animal.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（通过父类的对象调用不同子类引用的同一方法，父类既可以调用子类的不同形态，也可以调用自己的形态）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AnimalFu</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>  <span class="keyword">void</span>  <span class="title function_">eat</span><span class="params">(<span class="type">boolean</span> bool)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;动物在吃饭&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DogTest</span> <span class="keyword">extends</span> <span class="title class_">AnimalFu</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">(<span class="type">boolean</span> bool)</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (bool)&#123;</span><br><span class="line">           System.out.println(<span class="string">&quot;狗吃肉&quot;</span>);</span><br><span class="line">       &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="built_in">super</span>.eat(<span class="literal">true</span>);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CatTest</span> <span class="keyword">extends</span> <span class="title class_">AnimalFu</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">(<span class="type">boolean</span> bool)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (bool)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;猫吃鱼&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">super</span>.eat(<span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
         </div>
 
@@ -192,11 +188,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：周预算计划</li>
+        <li>Post title：面试问题总结</li>
         <li>Post author：秋水</li>
-        <li>Create time：2023-10-07 15:54:23</li>
+        <li>Create time：2023-10-08 13:27:51</li>
         <li>
-            Post link：tai769.github.io2023/10/07/周预算计划/
+            Post link：tai769.github.io2023/10/08/面试问题总结/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -210,29 +206,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2023/10/08/%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">面试问题总结</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2023/09/19/Graduate-task/"
+                           href="/2023/10/07/%E5%91%A8%E9%A2%84%E7%AE%97%E8%AE%A1%E5%88%92/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Graduate task</span>
+                                <span class="post-nav-title-item">周预算计划</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -355,7 +336,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#2023-10-8-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E5%A4%9A%E6%80%81%EF%BC%8C%E5%A4%9A%E6%80%81%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">2023.10.8 如何理解多态，多态是什么</span></a></li></ol>
     </div>
 </div>
         </aside>
