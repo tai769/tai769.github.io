@@ -9,7 +9,7 @@
     
     <title>
         
-            codeIssue |
+            javaweb阶段问题 |
         
         qiushui‘s blog
     </title>
@@ -136,7 +136,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">codeIssue</span>
+            <span class="title-hover-animation">javaweb阶段问题</span>
         </div>
 
         
@@ -175,7 +175,7 @@
         
 
         <div class="article-content markdown-body">
-            <h1 id="关于编写代码一些问题整理"><a href="#关于编写代码一些问题整理" class="headerlink" title="关于编写代码一些问题整理"></a>关于编写代码一些问题整理</h1><h3 id="在字符串判定相等的时候，equals写法以及为什么要这样写"><a href="#在字符串判定相等的时候，equals写法以及为什么要这样写" class="headerlink" title="在字符串判定相等的时候，equals写法以及为什么要这样写"></a>在字符串判定相等的时候，equals写法以及为什么要这样写</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">&quot;aaa&quot;</span>.equals(code))</span><br></pre></td></tr></table></figure>
+            <h1 id="关于编写代码一些问题整理"><a href="#关于编写代码一些问题整理" class="headerlink" title="关于编写代码一些问题整理"></a>关于编写代码一些问题整理</h1><h2 id="JAVAWEB阶段"><a href="#JAVAWEB阶段" class="headerlink" title="JAVAWEB阶段"></a>JAVAWEB阶段</h2><h3 id="在字符串判定相等的时候，equals写法以及为什么要这样写"><a href="#在字符串判定相等的时候，equals写法以及为什么要这样写" class="headerlink" title="在字符串判定相等的时候，equals写法以及为什么要这样写"></a>在字符串判定相等的时候，equals写法以及为什么要这样写</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="string">&quot;aaa&quot;</span>.equals(code))</span><br></pre></td></tr></table></figure>
 
 <p>这样写的好处，首先这样可以防止如果code为空的话，提示空指针异常错误</p>
 <h3 id="关于重定向与请求转发的区别"><a href="#关于重定向与请求转发的区别" class="headerlink" title="关于重定向与请求转发的区别"></a>关于重定向与请求转发的区别</h3><p>重定向</p>
@@ -200,6 +200,47 @@
 <p>下面是一个简单的Java批处理示例，用于演示如何在数据库操作中使用批处理。这个例子展示了如何使用JDBC（Java Database Connectivity）批量插入数据到数据库中。请注意，这只是一个示例，你需要根据自己的数据库配置和需求进行调整。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.DriverManager;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BatchProcessingExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> <span class="string">&quot;jdbc:mysql://localhost:3306/your_database&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> <span class="string">&quot;your_username&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> <span class="string">&quot;your_password&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> (<span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> DriverManager.getConnection(url, username, password)) &#123;</span><br><span class="line">            connection.setAutoCommit(<span class="literal">false</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;INSERT INTO your_table (column1, column2) VALUES (?, ?)&quot;</span>;</span><br><span class="line">            <span class="keyword">try</span> (<span class="type">PreparedStatement</span> <span class="variable">statement</span> <span class="operator">=</span> connection.prepareStatement(sql)) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">                    statement.setString(<span class="number">1</span>, <span class="string">&quot;Value1_&quot;</span> + i);</span><br><span class="line">                    statement.setString(<span class="number">2</span>, <span class="string">&quot;Value2_&quot;</span> + i);</span><br><span class="line">                    statement.addBatch();</span><br><span class="line">                    </span><br><span class="line">                    <span class="keyword">if</span> (i % <span class="number">5</span> == <span class="number">0</span>) &#123;</span><br><span class="line">                        statement.executeBatch(); <span class="comment">// 执行批处理</span></span><br><span class="line">                        connection.commit(); <span class="comment">// 提交更改</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在这个例子中，我们创建了一个预备语句，然后循环添加了多个数据集到这个语句中。当累积到一定数量的数据后，我们执行批处理来将这些数据一次性插入到数据库中。这比单次插入每条数据更有效率，尤其是在处理大量数据时。这里用到了循环来构建批处理，但循环本身不是批处理的全部，批处理的关键在于一次性处理多个任务或数据。</p>
+<h3 id="我做了一个项目，前端用了vue-，交互用了thymleaf-，那么我想知道的就是，我什么时候用thymeleaf，什么时候又该用vue呢，我有点被他俩搞混了"><a href="#我做了一个项目，前端用了vue-，交互用了thymleaf-，那么我想知道的就是，我什么时候用thymeleaf，什么时候又该用vue呢，我有点被他俩搞混了" class="headerlink" title="我做了一个项目，前端用了vue ，交互用了thymleaf ，那么我想知道的就是，我什么时候用thymeleaf，什么时候又该用vue呢，我有点被他俩搞混了"></a>我做了一个项目，前端用了vue ，交互用了thymleaf ，那么我想知道的就是，我什么时候用thymeleaf，什么时候又该用vue呢，我有点被他俩搞混了</h3><p>Vue.js 和 Thymeleaf 在前端开发中扮演着不同的角色，理解它们的基本用途和优势可以帮助你决定在什么情况下使用它们。</p>
+<ol>
+<li><p><strong>Vue.js</strong> 是一个现代的JavaScript框架，用于构建交互式和动态的单页应用（SPA）。Vue.js的主要优势在于它的响应式和组件化特性，这让开发复杂的动态界面变得简单。当你需要构建高度交互性的前端，需要与后端API进行大量交互时，Vue.js是一个很好的选择。</p>
+</li>
+<li><p><strong>Thymeleaf</strong> 是一个Java服务器端的模板引擎，用于渲染HTML。Thymeleaf通常在服务器端生成HTML页面，然后将这些页面发送到客户端。它适用于更传统的网页应用，其中页面在服务器端渲染，并且页面的动态性较低。</p>
+</li>
+</ol>
+<p>根据这些特点，你可以这样决定：</p>
+<ul>
+<li><p>当你需要高度动态的、与用户交互密集的界面时，<strong>使用Vue.js</strong>。Vue.js适合那些需要频繁更新和更改的部分，特别是那些需要与用户进行大量交互的元素。</p>
+</li>
+<li><p>当你的应用需要在服务器端生成HTML内容，或者对SEO（搜索引擎优化）有较高要求时，<strong>使用Thymeleaf</strong>。例如，对于那些内容静态、不需要频繁更新的页面，Thymeleaf可能是更好的选择。</p>
+</li>
+</ul>
+<p>在一些项目中，Vue.js和Thymeleaf可以同时使用，但通常需要清晰地区分它们的职责，以避免混淆和潜在的性能问题。例如，你可以在服务器端用Thymeleaf生成页面的初始状态，然后用Vue.js来处理更复杂的交互和动态内容更新。</p>
+<h3 id="那比如我出现的一个数据，我是不是可以交给thymleaf去渲染，我是不是也可以给vue去渲染"><a href="#那比如我出现的一个数据，我是不是可以交给thymleaf去渲染，我是不是也可以给vue去渲染" class="headerlink" title="那比如我出现的一个数据，我是不是可以交给thymleaf去渲染，我是不是也可以给vue去渲染"></a>那比如我出现的一个数据，我是不是可以交给thymleaf去渲染，我是不是也可以给vue去渲染</h3><p>是的，你可以选择用Thymeleaf或Vue.js来渲染数据，这取决于你的具体需求和应用场景。下面是两种情况的对比：</p>
+<ol>
+<li><p><strong>使用Thymeleaf渲染数据</strong>：</p>
+<ul>
+<li><strong>场景</strong>：适用于服务器端渲染。如果你的数据在页面加载时就已经可用，并且不需要在用户与页面交互时动态更新，那么使用Thymeleaf是合适的。</li>
+<li><strong>优势</strong>：对搜索引擎优化（SEO）友好，因为内容是在服务器端生成的，易于搜索引擎抓取。适用于内容静态、更新频率不高的页面。</li>
+<li><strong>限制</strong>：不适合需要频繁更新或与用户交互的动态内容。每次数据更新都可能需要重新加载页面或部分页面。</li>
+</ul>
+</li>
+<li><p><strong>使用Vue.js渲染数据</strong>：</p>
+<ul>
+<li><strong>场景</strong>：适用于客户端渲染。如果你需要构建一个交互性强的应用，或者数据需要在用户与应用交互时动态更新，Vue.js是更好的选择。</li>
+<li><strong>优势</strong>：能够创建更丰富的用户界面和更平滑的用户体验。支持数据的实时更新，不需要重新加载整个页面。</li>
+<li><strong>限制</strong>：对SEO不如服务器端渲染友好。需要额外的JavaScript支持和可能的初始加载时间较长。</li>
+</ul>
+</li>
+</ol>
+<p>综合来看，如果你的应用侧重于用户交互和实时数据更新，Vue.js会是更好的选择。如果你的应用主要展示静态内容，或者需要优化SEO，那么使用Thymeleaf可能更适合。在实际开发过程中，你也可以根据页面的不同部分和功能，灵活选择使用Thymeleaf和Vue.js。例如，对于静态内容部分使用Thymeleaf，而对于需要动态交互的部分使用Vue.js。</p>
+<h3 id="为什么用Integer而不用int呢"><a href="#为什么用Integer而不用int呢" class="headerlink" title="为什么用Integer而不用int呢"></a>为什么用Integer而不用int呢</h3><ol>
+<li><strong>对象而不是原始类型</strong>：<code>Integer</code>是<code>int</code>的包装类，意味着它是一个对象。这允许<code>Integer</code>具有方法和属性，而原始类型<code>int</code>不具备这些特性。</li>
+<li><strong>空值处理</strong>：<code>Integer</code>可以为<code>null</code>，而<code>int</code>不能。这在某些情况下非常有用，比如在数据库交互中，可以表示一个值是未定义的或缺失的。</li>
+<li><strong>泛型中的使用</strong>：Java的泛型不支持原始类型。例如，在使用集合类如<code>ArrayList</code>时，你不能使用原始类型（如<code>int</code>），而必须使用其包装类（如<code>Integer</code>）。</li>
+<li><strong>自动装箱和拆箱</strong>：Java 5及更高版本提供了自动装箱（将<code>int</code>转换为<code>Integer</code>）和自动拆箱（将<code>Integer</code>转换为<code>int</code>）的功能。这使得在使用原始类型和包装类型之间进行转换变得简单。</li>
+<li><strong>标准方法和额外功能</strong>：由于<code>Integer</code>是一个类，它提供了许多有用的标准方法，比如<code>compareTo</code>, <code>toString</code>, <code>equals</code>等，以及静态方法，如<code>parseInt</code>，这些在原始类型<code>int</code>中是不可用的。</li>
+<li>缺点： 使用<code>Integer</code>也有缺点，比如额外的内存消耗和可能更慢的性能，因为它涉及到对象的创建和管理，而不是直接操作原始类型。</li>
+</ol>
 
         </div>
 
@@ -207,7 +248,7 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：codeIssue</li>
+        <li>Post title：javaweb阶段问题</li>
         <li>Post author：秋水</li>
         <li>Create time：2023-11-09 23:40:12</li>
         <li>
@@ -224,6 +265,21 @@
 
         
             <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/12/05/designMode-code-issue/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">designMode code issue</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next">
@@ -355,7 +411,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">关于编写代码一些问题整理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%A4%E5%AE%9A%E7%9B%B8%E7%AD%89%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8Cequals%E5%86%99%E6%B3%95%E4%BB%A5%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%99%E6%A0%B7%E5%86%99"><span class="nav-number">1.0.1.</span> <span class="nav-text">在字符串判定相等的时候，equals写法以及为什么要这样写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E9%87%8D%E5%AE%9A%E5%90%91%E4%B8%8E%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.0.2.</span> <span class="nav-text">关于重定向与请求转发的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%89%B9%E5%A4%84%E7%90%86-%E5%B8%AE%E6%88%91%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E4%BB%A3%E7%A0%81%E7%9C%8B%E7%9C%8B%EF%BC%8C%E4%BB%96%E5%92%8C%E5%BE%AA%E7%8E%AF%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-number">1.0.3.</span> <span class="nav-text">什么是批处理 帮我写一个简单代码看看，他和循环有什么区别</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">关于编写代码一些问题整理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JAVAWEB%E9%98%B6%E6%AE%B5"><span class="nav-number">1.1.</span> <span class="nav-text">JAVAWEB阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%A4%E5%AE%9A%E7%9B%B8%E7%AD%89%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8Cequals%E5%86%99%E6%B3%95%E4%BB%A5%E5%8F%8A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%99%E6%A0%B7%E5%86%99"><span class="nav-number">1.1.1.</span> <span class="nav-text">在字符串判定相等的时候，equals写法以及为什么要这样写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E9%87%8D%E5%AE%9A%E5%90%91%E4%B8%8E%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.2.</span> <span class="nav-text">关于重定向与请求转发的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%89%B9%E5%A4%84%E7%90%86-%E5%B8%AE%E6%88%91%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E4%BB%A3%E7%A0%81%E7%9C%8B%E7%9C%8B%EF%BC%8C%E4%BB%96%E5%92%8C%E5%BE%AA%E7%8E%AF%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.3.</span> <span class="nav-text">什么是批处理 帮我写一个简单代码看看，他和循环有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%91%E5%81%9A%E4%BA%86%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%89%8D%E7%AB%AF%E7%94%A8%E4%BA%86vue-%EF%BC%8C%E4%BA%A4%E4%BA%92%E7%94%A8%E4%BA%86thymleaf-%EF%BC%8C%E9%82%A3%E4%B9%88%E6%88%91%E6%83%B3%E7%9F%A5%E9%81%93%E7%9A%84%E5%B0%B1%E6%98%AF%EF%BC%8C%E6%88%91%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8thymeleaf%EF%BC%8C%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%8F%88%E8%AF%A5%E7%94%A8vue%E5%91%A2%EF%BC%8C%E6%88%91%E6%9C%89%E7%82%B9%E8%A2%AB%E4%BB%96%E4%BF%A9%E6%90%9E%E6%B7%B7%E4%BA%86"><span class="nav-number">1.1.4.</span> <span class="nav-text">我做了一个项目，前端用了vue ，交互用了thymleaf ，那么我想知道的就是，我什么时候用thymeleaf，什么时候又该用vue呢，我有点被他俩搞混了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%A3%E6%AF%94%E5%A6%82%E6%88%91%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%88%91%E6%98%AF%E4%B8%8D%E6%98%AF%E5%8F%AF%E4%BB%A5%E4%BA%A4%E7%BB%99thymleaf%E5%8E%BB%E6%B8%B2%E6%9F%93%EF%BC%8C%E6%88%91%E6%98%AF%E4%B8%8D%E6%98%AF%E4%B9%9F%E5%8F%AF%E4%BB%A5%E7%BB%99vue%E5%8E%BB%E6%B8%B2%E6%9F%93"><span class="nav-number">1.1.5.</span> <span class="nav-text">那比如我出现的一个数据，我是不是可以交给thymleaf去渲染，我是不是也可以给vue去渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8Integer%E8%80%8C%E4%B8%8D%E7%94%A8int%E5%91%A2"><span class="nav-number">1.1.6.</span> <span class="nav-text">为什么用Integer而不用int呢</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
