@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="秋水">
+    
+    <title>
+        
+            leetcode常用数据结构(JAVA) |
+        
+        qiushui‘s blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"tai769.github.io","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"知识，技能，心态"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                qiushui‘s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">leetcode常用数据结构(JAVA)</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">秋水</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2024-01-11 17:12:16
+    </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="数据结构JAVA版本"><a href="#数据结构JAVA版本" class="headerlink" title="数据结构JAVA版本"></a>数据结构JAVA版本</h2><h3 id="List-接口"><a href="#List-接口" class="headerlink" title="List 接口"></a>List 接口</h3><p>list接口是一个有序集合，他可以包含重复的元素。</p>
+<h4 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h4><p>基于动态数组的实现，他的元素在内存中是连续存放的。</p>
+<ol>
+<li><p>特点</p>
+<ol>
+<li>动态数据实现：ArrayList内部使用数组存储元素，当添加元素超过当前容量时，可以自动增常。</li>
+<li>随机访问效率高：可以快速访问到数据的特定元素。</li>
+<li>插入和删除效率较低：在列表的中间或者开始插入元素需要移动元素</li>
+<li>非线程安全</li>
+<li>支持范型</li>
+</ol>
+</li>
+<li><p>定义方式 </p>
+<ol>
+<li>```java<br>ArrayList<Integer> numbers = new ArrayList&lt;&gt;();//指定初始容量<br>// 定义一个初始容量为10的ArrayList<br>ArrayList<Integer> numbers = new ArrayList&lt;&gt;(10);// 定义一个用于存储自定义对象的ArrayList<br>ArrayList<MyObject> myObjects = new ArrayList&lt;&gt;();<br>import java.util.Arrays;// 从已存在的数组或集合创建ArrayList<br>ArrayList<String> names = new ArrayList&lt;&gt;(Arrays.asList(“Alice”, “Bob”, “Charlie”));<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3. 常用方法</span><br><span class="line"></span><br><span class="line">   1. 添加元素</span><br><span class="line">      1. add(E e)：将特定元素添加到尾部  **返回值** boolean</span><br><span class="line">      2. add(int index, E e): 将指定的元素插入列表的指定位置 **返回值**  void</span><br><span class="line">   2. 访问元素</span><br><span class="line">      1. get(int index ): 返回列表中指定元素的位置 **返回值**  E (列表中元素的类型)</span><br><span class="line">   3. 修改元素</span><br><span class="line">      1. set(int index , E element) : 用于指定元素列表中指定位置的元素 **返回值**  E</span><br><span class="line">   4. 移除元素</span><br><span class="line">      1. remove(int index): 移除列表中指定位置的元素 **返回值** E (返回被移除的元素)</span><br><span class="line">      2. remove(Object o): 移除列表中首次出现的指定元素(如果存在) **返回值**  boolean</span><br><span class="line">   5. 列表大小和清空</span><br><span class="line">      1. size（）: 返回列表中的元素个数 **返回值**  int</span><br><span class="line">      2. clear（）：移除列表中的所有元素 **返回值**  void</span><br><span class="line">   6. 其他操作</span><br><span class="line">      1. indexOf(Object o): 返回列表中首次出现指定元素的索引，如果列表不包含该元素，则返回-1。 **返回值**  int</span><br><span class="line">      2. contains（Object o)：判断列表中是否包含指定的元素。 **返回值**  boolean</span><br><span class="line"></span><br><span class="line">#### LinkedList </span><br><span class="line"></span><br><span class="line">基于双向链表的实现，允许在列表的任何位置快速插入元素和删除元素，但随机访问元素则比较慢</span><br><span class="line"></span><br><span class="line">1. 特点</span><br><span class="line"></span><br><span class="line">   1. 双向链表实现: 基于双向链表数据结构实现，这意味着他的每个元素指向前一个和下一个元素的引用。</span><br><span class="line">   2. 插入和删除效率高：由于其链表结构，向LinkedList中添加或删除元素，通常比ArrayList快，因为不需要移动其他元素</span><br><span class="line">   3. 随机访问效率低: 与ArrayList相比，随机访问（通过索引获取元素）在LinkedList中效率较低，因为需要从头或者结尾开始遍历元素</span><br><span class="line">   4. 实现了List和Deque接口：ListedList不仅实现List接口，还实现了Deque接口，提供了额外的队列操作，如在头部或尾部添加/删除元素</span><br><span class="line">   5. 内存占用相对较高：每个元素都有额外的内存开销，因为存储需要指向前一个后一个的引用</span><br><span class="line"></span><br><span class="line">2. 定义方式</span><br><span class="line"></span><br><span class="line">   1. ```java</span><br><span class="line">      import java.util.LinkedList;</span><br><span class="line">      </span><br><span class="line">      // 定义一个空的LinkedList，用于存储Integer类型的元素</span><br><span class="line">      LinkedList&lt;Integer&gt; numbers = new LinkedList&lt;&gt;();</span><br><span class="line">      </span><br><span class="line">      // 定义一个空的LinkedList，用于存储String类型的元素</span><br><span class="line">      LinkedList&lt;String&gt; names = new LinkedList&lt;&gt;();</span><br><span class="line">      </span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>常用方法</p>
+<ol>
+<li>添加元素<ol>
+<li>add(E e)：在列表末尾添加指定的元素 <strong>返回值</strong>  boolean</li>
+<li>add(int index , E e): 在列表的指定位置插入指定的元素 <strong>返回值</strong>  void</li>
+<li>addFirst(E e)： 在列表的开头插入指定的元素 <strong>返回值</strong>  void</li>
+<li>addLast(E e): 在列表末尾插入指定的元素 <strong>返回值</strong>  void</li>
+</ol>
+</li>
+<li>访问元素<ol>
+<li>get(int index) : 返回列表中指定位置的元素 <strong>返回值</strong>  E</li>
+<li>getFirst() : 返回列表的第一个元素 <strong>返回值</strong>  E</li>
+<li>getLast() : 返回列表的最后一个元素 <strong>返回值</strong>  E</li>
+</ol>
+</li>
+<li>修改元素<ol>
+<li>set(int index , E e): 用指定的元素替换列表中指定位置的元素 <strong>返回值</strong>  E(返回的是旧的元素)</li>
+</ol>
+</li>
+<li>移除元素<ol>
+<li>remove() : 移除并返回列表的第一个元素 <strong>返回值</strong>  E</li>
+<li>remove(int index): 移除列表中指定位置的元素 <strong>返回值</strong>  E</li>
+<li>remove(Object o): 移除列表中首次出现的指定元素 <strong>返回值</strong>  boolean</li>
+<li>removeFirst() : 移除并返回列表的第一个元素 <strong>返回值</strong> E</li>
+<li>removeLast(): 移除并返回列表的最后一个元素 <strong>返回值</strong>  E</li>
+</ol>
+</li>
+<li>其他操作<ol>
+<li>size() : 返回列表中的元素数 <strong>返回值</strong>  int</li>
+<li>clear(): 移除列表中的所有元素 <strong>返回值</strong>  void</li>
+<li>contains(Object o ): 判断列表中是否包含指定的元素 <strong>返回值</strong>  boolean</li>
+<li>indexOf(Object o): 返回列表中首次出现的指定元素的索引 <strong>返回值</strong>  int</li>
+<li>lastIndexOf(Object o): 返回列表中最后一次出现指定元素的索引 <strong>返回值</strong>  int</li>
+</ol>
+</li>
+</ol>
+<h4 id="栈Stack"><a href="#栈Stack" class="headerlink" title="栈Stack"></a>栈Stack</h4><p>stack是java中的一个类，他扩展了Vector类并实现了一个后进先出的堆栈</p>
+<ol>
+<li><p>特点</p>
+<ol>
+<li>后进先出</li>
+<li>基于Vector类实现： 因此拥有vector的所有特性，如能动态扩展</li>
+<li>线程安全： 所有方法都是同步的，即线程安全</li>
+<li>支持所有的数据类型：虽然Stack仍能被使用，但java官方更推荐灵活的Deque 如ArrayDeque或LinkedList</li>
+</ol>
+</li>
+<li><p>定义</p>
+<ol>
+<li>```<br>Stack<Integer> stack = new Stack&lt;&gt;();<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   3. 常用方法</span><br><span class="line"></span><br><span class="line">      1. push（E item）：将元素压入堆栈顶部 **返回值**  E</span><br><span class="line">      2. pop( ) ： 移除并返回堆栈顶部移除的元素 **返回值** E</span><br><span class="line">      3. peek( ) : 查看堆栈顶部的对象而不移除它 **返回值** E</span><br><span class="line">      4. empty( )：测试堆栈是否为空 **返回值** boolean</span><br><span class="line">      5. search（Object o)： 返回对象在堆栈中的位置，以1为基数 **返回值** int</span><br><span class="line"></span><br><span class="line">#### **Vector**</span><br><span class="line"></span><br><span class="line">他和ArrayLsit类似，是线程安全的</span><br><span class="line"></span><br><span class="line">#### CopyOnWriteArrayList</span><br><span class="line"></span><br><span class="line">线程安全的`ArrayList`变体。在任何修改操作（如添加、设置和删除等）时，它都会复制底层数组。</span><br><span class="line"></span><br><span class="line">### Deque 接口</span><br><span class="line"></span><br><span class="line">是 Java 中的一个接口，属于 Java 集合框架。它允许在队列的两端进行元素的插入和移除操作，这使得它既可以被当作队列使用，也可以作为栈使用。</span><br><span class="line"></span><br><span class="line">#### LinkedList</span><br><span class="line"></span><br><span class="line">#### ArrayDeque</span><br><span class="line"></span><br><span class="line">`ArrayDeque` 是 `Deque` 接口的一个具体实现，使用了可变大小的数组。</span><br><span class="line"></span><br><span class="line">1. 特点</span><br><span class="line"></span><br><span class="line">   1. 高效的双端操作： 允许高校的在队列的两端插入和删除元素，可以实现栈，也可以实现队列</span><br><span class="line">   2. 无容量限制： 虽然是基于数组实现的，但他可以在运行时动态的扩展和缩减其容量</span><br><span class="line">   3. 更快的迭代性能：与基于链表的LinkedList相比，ArrayDeque在迭代访问时更快</span><br><span class="line">   4. 非线程安全： ArrayDeque不是线程安全，如果在多线程环境下使用，需要外部使用</span><br><span class="line">   5. 不允许插入null元素：使用ArrayDeque时不能添加null元素，因为null被用来作为特殊的返回值，以指示队列为空。</span><br><span class="line"></span><br><span class="line">2. 定义</span><br><span class="line"></span><br><span class="line">   1. ```java</span><br><span class="line">      Deque&lt;Integer&gt; deque = new ArrayDeque&lt;&gt;(); </span><br><span class="line">      // 或者，直接使用 ArrayDeque 类型</span><br><span class="line">      ArrayDeque&lt;Integer&gt; arrayDeque = new ArrayDeque&lt;&gt;();</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>常用方法</p>
+<ol>
+<li>添加元素<ol>
+<li>addFirst(E e) : 在队列前端添加一个元素</li>
+<li>addLast(E e): 在队列的后段添加一个元素</li>
+<li>offerFirst(E e): 在队列的前端添加一个元素，如果队列已满，则返回 false</li>
+<li>offerLast(E e): 在队列的后段添加一个元素，如果队列已满，则返回 false</li>
+</ol>
+</li>
+<li>移除元素<ol>
+<li>removeFirst() : 移除并返回队列前端的元素</li>
+<li>removeLast() : 移除并返回队列后段的元素</li>
+<li>pollFirst() ：移除并返回队列前端的元素，如果队列为空，则返回null</li>
+<li>pollLast() ： 移除并返回队列后段的元素，如果队列为空，则返回null</li>
+</ol>
+</li>
+<li>查看元素<ol>
+<li>getFirst() : 返回队列前端的元素但不移除</li>
+<li>getLast() : 返回队列后段的元素</li>
+<li>peekFirst() : 返回队列前端的元素但不移除它，如果队列为空，则返回null</li>
+<li>peekLast() : 返回队列后端的元素但不移除它，如果队列为空，则返回null</li>
+</ol>
+</li>
+<li>栈操作<ol>
+<li>push(E e) : 将元素推入堆栈表示的队列前端</li>
+<li>pop() ：移除并返回堆栈表示的队列前端的元素</li>
+</ol>
+</li>
+<li>其他方法<ol>
+<li>size() : 返回队列中元素数量</li>
+<li>isEmpty() : 检查队列是否为空</li>
+<li>clear() : 清空队列</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h3><h3 id="Map集合"><a href="#Map集合" class="headerlink" title="Map集合"></a>Map集合</h3><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>Map&lt;Integer, Integer&gt; map = new HashMap&lt;Integer, Integer&gt;();</p>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ol>
+<li><p>getOrDefault 是 Java 中 HashMap 类的一个方法。这个方法用于从 HashMap 获取指定键（key）对应的值（value）。如果 HashMap 中包含该键，它将返回键对应的值；如果不包含，它将返回一个默认值，这个默认值是方法调用时指定的。 </p>
+<ul>
+<li>  使用方法： map.getOrDefault(c,0) </li>
+</ul>
+</li>
+<li><p><code>HashMap</code>类提供了一个名为 <code>containsKey</code> 的方法，它用来检查 <code>HashMap</code> 是否包含特定的键。这个方法非常有用，因为它允许你在尝试访问或修改 <code>HashMap</code> 中的元素之前先检查该键是否存在。</p>
+<p><code>containsKey</code> 方法接受一个参数，即你想要检查是否存在的键。它返回一个布尔值（<code>boolean</code>）</p>
+<ul>
+<li>使用方法 ： map.containsKey(key);</li>
+</ul>
+</li>
+<li><p>put方法 存入数据</p>
+</li>
+<li><p>get方法，根据key获取vlaue</p>
+</li>
+</ol>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：leetcode常用数据结构(JAVA)</li>
+        <li>Post author：秋水</li>
+        <li>Create time：2024-01-11 17:12:16</li>
+        <li>
+            Post link：tai769.github.io2024/01/11/leetcode常用数据结构-JAVA/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/12/30/leetcode-Learning-plan/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">leetcode Learning plan</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>&nbsp;-&nbsp;
+            
+            2024&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">秋水</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84JAVA%E7%89%88%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">数据结构JAVA版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#List-%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.</span> <span class="nav-text">List 接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayList"><span class="nav-number">1.1.1.</span> <span class="nav-text">ArrayList</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88Stack"><span class="nav-number">1.1.2.</span> <span class="nav-text">栈Stack</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set%E9%9B%86%E5%90%88"><span class="nav-number">1.2.</span> <span class="nav-text">Set集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map%E9%9B%86%E5%90%88"><span class="nav-number">1.3.</span> <span class="nav-text">Map集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.4.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">方法</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

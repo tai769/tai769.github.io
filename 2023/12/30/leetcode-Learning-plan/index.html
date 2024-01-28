@@ -353,8 +353,15 @@
 <p>解法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// method2 单调栈的方法</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> temperatures.length;</span><br><span class="line">    <span class="type">int</span>[] ans = <span class="keyword">new</span> <span class="title class_">int</span>[length];</span><br><span class="line">    Deque&lt;Integer&gt; stack = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;Integer&gt;();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt; length; i++)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">temperature</span> <span class="operator">=</span> temperatures[i];</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; temperature &gt; temperatures[stack.peek()])&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">prevIndex</span> <span class="operator">=</span>stack.pop();</span><br><span class="line">            ans[prevIndex] = i - prevIndex;</span><br><span class="line">        &#125;</span><br><span class="line">        stack.push(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br></pre></td></tr></table></figure>
 
-
-
+<h3 id="单调栈的解题思路"><a href="#单调栈的解题思路" class="headerlink" title="单调栈的解题思路"></a><strong>单调栈的解题思路</strong></h3><ol>
+<li>单调栈，其中的元素是单调递增或者递减。</li>
+<li>解题思路如何下<ol>
+<li>确定单调性：确定使用的是递增栈还是递减栈，如果你要找到每一个右则第一个更大的元素，应该使用递减栈（从栈底到栈顶以此减小）</li>
+<li>处理元素，如果栈非空且栈顶元素小于当前元素，出栈栈顶元素，并记录当前元素是栈顶元素右侧第一个更大的元素</li>
+<li>遍历结束后，栈中剩余的元素没有右侧更大的元素，可以根据需求处理</li>
+</ol>
+</li>
+</ol>
 <h2 id="常用数据结构-积累整理"><a href="#常用数据结构-积累整理" class="headerlink" title="常用数据结构 积累整理"></a>常用数据结构 积累整理</h2><h3 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h3><h3 id="Map集合"><a href="#Map集合" class="headerlink" title="Map集合"></a>Map集合</h3><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>Map&lt;Integer, Integer&gt; map = new HashMap&lt;Integer, Integer&gt;();</p>
 <h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><ol>
 <li> getOrDefault 是 Java 中 HashMap 类的一个方法。这个方法用于从 HashMap 获取指定键（key）对应的值（value）。如果 HashMap 中包含该键，它将返回键对应的值；如果不包含，它将返回一个默认值，这个默认值是方法调用时指定的。 </li>
@@ -398,6 +405,21 @@
 
         
             <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2024/01/11/leetcode%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-JAVA/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">leetcode常用数据结构(JAVA)</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next">
@@ -529,7 +551,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%92%8C%E8%A7%A3%E5%86%B3%E7%BC%96%E7%A8%8B%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E7%9A%84%E6%9C%80%E4%BD%B3%E6%8A%80%E5%B7%A7"><span class="nav-number">1.</span> <span class="nav-text">处理和解决编程面试问题的最佳技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">数组问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%95%B0%E7%BB%84%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">面试数组注意的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%81%E7%AB%AF%E6%83%85%E5%86%B5"><span class="nav-number">1.2.</span> <span class="nav-text">极端情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashSet"><span class="nav-number">2.</span> <span class="nav-text">HashSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">解决数组问题常用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">3.1.</span> <span class="nav-text">滑动窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">3.2.</span> <span class="nav-text">双指针解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%A7%AF%E7%B4%AF%E6%95%B4%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">常用数据结构 积累整理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Set%E9%9B%86%E5%90%88"><span class="nav-number">4.1.</span> <span class="nav-text">Set集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map%E9%9B%86%E5%90%88"><span class="nav-number">4.2.</span> <span class="nav-text">Map集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">4.3.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">4.3.1.</span> <span class="nav-text">方法</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%92%8C%E8%A7%A3%E5%86%B3%E7%BC%96%E7%A8%8B%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E7%9A%84%E6%9C%80%E4%BD%B3%E6%8A%80%E5%B7%A7"><span class="nav-number">1.</span> <span class="nav-text">处理和解决编程面试问题的最佳技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">数组问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%95%B0%E7%BB%84%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">面试数组注意的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%81%E7%AB%AF%E6%83%85%E5%86%B5"><span class="nav-number">1.2.</span> <span class="nav-text">极端情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashSet"><span class="nav-number">2.</span> <span class="nav-text">HashSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">解决数组问题常用的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">3.1.</span> <span class="nav-text">滑动窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">3.2.</span> <span class="nav-text">双指针解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E8%B0%83%E6%A0%88%E7%9A%84%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">3.3.</span> <span class="nav-text">单调栈的解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%A7%AF%E7%B4%AF%E6%95%B4%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">常用数据结构 积累整理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Set%E9%9B%86%E5%90%88"><span class="nav-number">4.1.</span> <span class="nav-text">Set集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map%E9%9B%86%E5%90%88"><span class="nav-number">4.2.</span> <span class="nav-text">Map集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">4.3.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">4.3.1.</span> <span class="nav-text">方法</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
