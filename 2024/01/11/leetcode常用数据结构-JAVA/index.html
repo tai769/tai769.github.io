@@ -188,10 +188,53 @@
 </ol>
 </li>
 <li><p>定义方式 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; numbers = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定初始容量</span></span><br><span class="line"><span class="comment">// 定义一个初始容量为10的ArrayList</span></span><br><span class="line">ArrayList&lt;Integer&gt; numbers = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个用于存储自定义对象的ArrayList</span></span><br><span class="line">ArrayList&lt;MyObject&gt; myObjects = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从已存在的数组或集合创建ArrayList</span></span><br><span class="line">ArrayList&lt;String&gt; names = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;Alice&quot;</span>, <span class="string">&quot;Bob&quot;</span>, <span class="string">&quot;Charlie&quot;</span>));</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>常用方法</p>
 <ol>
-<li>```java<br>ArrayList<Integer> numbers = new ArrayList&lt;&gt;();//指定初始容量<br>// 定义一个初始容量为10的ArrayList<br>ArrayList<Integer> numbers = new ArrayList&lt;&gt;(10);// 定义一个用于存储自定义对象的ArrayList<br>ArrayList<MyObject> myObjects = new ArrayList&lt;&gt;();<br>import java.util.Arrays;// 从已存在的数组或集合创建ArrayList<br>ArrayList<String> names = new ArrayList&lt;&gt;(Arrays.asList(“Alice”, “Bob”, “Charlie”));<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3. 常用方法</span><br><span class="line"></span><br><span class="line">   1. 添加元素</span><br><span class="line">      1. add(E e)：将特定元素添加到尾部  **返回值** boolean</span><br><span class="line">      2. add(int index, E e): 将指定的元素插入列表的指定位置 **返回值**  void</span><br><span class="line">   2. 访问元素</span><br><span class="line">      1. get(int index ): 返回列表中指定元素的位置 **返回值**  E (列表中元素的类型)</span><br><span class="line">   3. 修改元素</span><br><span class="line">      1. set(int index , E element) : 用于指定元素列表中指定位置的元素 **返回值**  E</span><br><span class="line">   4. 移除元素</span><br><span class="line">      1. remove(int index): 移除列表中指定位置的元素 **返回值** E (返回被移除的元素)</span><br><span class="line">      2. remove(Object o): 移除列表中首次出现的指定元素(如果存在) **返回值**  boolean</span><br><span class="line">   5. 列表大小和清空</span><br><span class="line">      1. size（）: 返回列表中的元素个数 **返回值**  int</span><br><span class="line">      2. clear（）：移除列表中的所有元素 **返回值**  void</span><br><span class="line">   6. 其他操作</span><br><span class="line">      1. indexOf(Object o): 返回列表中首次出现指定元素的索引，如果列表不包含该元素，则返回-1。 **返回值**  int</span><br><span class="line">      2. contains（Object o)：判断列表中是否包含指定的元素。 **返回值**  boolean</span><br><span class="line"></span><br><span class="line">#### LinkedList </span><br><span class="line"></span><br><span class="line">基于双向链表的实现，允许在列表的任何位置快速插入元素和删除元素，但随机访问元素则比较慢</span><br><span class="line"></span><br><span class="line">1. 特点</span><br><span class="line"></span><br><span class="line">   1. 双向链表实现: 基于双向链表数据结构实现，这意味着他的每个元素指向前一个和下一个元素的引用。</span><br><span class="line">   2. 插入和删除效率高：由于其链表结构，向LinkedList中添加或删除元素，通常比ArrayList快，因为不需要移动其他元素</span><br><span class="line">   3. 随机访问效率低: 与ArrayList相比，随机访问（通过索引获取元素）在LinkedList中效率较低，因为需要从头或者结尾开始遍历元素</span><br><span class="line">   4. 实现了List和Deque接口：ListedList不仅实现List接口，还实现了Deque接口，提供了额外的队列操作，如在头部或尾部添加/删除元素</span><br><span class="line">   5. 内存占用相对较高：每个元素都有额外的内存开销，因为存储需要指向前一个后一个的引用</span><br><span class="line"></span><br><span class="line">2. 定义方式</span><br><span class="line"></span><br><span class="line">   1. ```java</span><br><span class="line">      import java.util.LinkedList;</span><br><span class="line">      </span><br><span class="line">      // 定义一个空的LinkedList，用于存储Integer类型的元素</span><br><span class="line">      LinkedList&lt;Integer&gt; numbers = new LinkedList&lt;&gt;();</span><br><span class="line">      </span><br><span class="line">      // 定义一个空的LinkedList，用于存储String类型的元素</span><br><span class="line">      LinkedList&lt;String&gt; names = new LinkedList&lt;&gt;();</span><br><span class="line">      </span><br></pre></td></tr></table></figure></li>
+<li>添加元素<ol>
+<li>add(E e)：将特定元素添加到尾部  <strong>返回值</strong> boolean</li>
+<li>add(int index, E e): 将指定的元素插入列表的指定位置 <strong>返回值</strong>  void</li>
 </ol>
 </li>
+<li>访问元素<ol>
+<li>get(int index ): 返回列表中指定元素的位置 <strong>返回值</strong>  E (列表中元素的类型)</li>
+</ol>
+</li>
+<li>修改元素<ol>
+<li>set(int index , E element) : 用于指定元素列表中指定位置的元素 <strong>返回值</strong>  E</li>
+</ol>
+</li>
+<li>移除元素<ol>
+<li>remove(int index): 移除列表中指定位置的元素 <strong>返回值</strong> E (返回被移除的元素)</li>
+<li>remove(Object o): 移除列表中首次出现的指定元素(如果存在) <strong>返回值</strong>  boolean</li>
+</ol>
+</li>
+<li>列表大小和清空<ol>
+<li>size（）: 返回列表中的元素个数 <strong>返回值</strong>  int</li>
+<li>clear（）：移除列表中的所有元素 <strong>返回值</strong>  void</li>
+</ol>
+</li>
+<li>其他操作<ol>
+<li>indexOf(Object o): 返回列表中首次出现指定元素的索引，如果列表不包含该元素，则返回-1。 <strong>返回值</strong>  int</li>
+<li>contains（Object o)：判断列表中是否包含指定的元素。 <strong>返回值</strong>  boolean</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h4><p>基于双向链表的实现，允许在列表的任何位置快速插入元素和删除元素，但随机访问元素则比较慢</p>
+<ol>
+<li><p>特点</p>
+<ol>
+<li>双向链表实现: 基于双向链表数据结构实现，这意味着他的每个元素指向前一个和下一个元素的引用。</li>
+<li>插入和删除效率高：由于其链表结构，向LinkedList中添加或删除元素，通常比ArrayList快，因为不需要移动其他元素</li>
+<li>随机访问效率低: 与ArrayList相比，随机访问（通过索引获取元素）在LinkedList中效率较低，因为需要从头或者结尾开始遍历元素</li>
+<li>实现了List和Deque接口：ListedList不仅实现List接口，还实现了Deque接口，提供了额外的队列操作，如在头部或尾部添加/删除元素</li>
+<li>内存占用相对较高：每个元素都有额外的内存开销，因为存储需要指向前一个后一个的引用</li>
+</ol>
+</li>
+<li><p>定义方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedList;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个空的LinkedList，用于存储Integer类型的元素</span></span><br><span class="line">LinkedList&lt;Integer&gt; numbers = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个空的LinkedList，用于存储String类型的元素</span></span><br><span class="line">LinkedList&lt;String&gt; names = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 <li><p>常用方法</p>
 <ol>
 <li>添加元素<ol>
@@ -239,12 +282,35 @@
 </ol>
 </li>
 <li><p>定义</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();</span><br></pre></td></tr></table></figure></li>
+<li><p>常用方法</p>
 <ol>
-<li>```<br>Stack<Integer> stack = new Stack&lt;&gt;();<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   3. 常用方法</span><br><span class="line"></span><br><span class="line">      1. push（E item）：将元素压入堆栈顶部 **返回值**  E</span><br><span class="line">      2. pop( ) ： 移除并返回堆栈顶部移除的元素 **返回值** E</span><br><span class="line">      3. peek( ) : 查看堆栈顶部的对象而不移除它 **返回值** E</span><br><span class="line">      4. empty( )：测试堆栈是否为空 **返回值** boolean</span><br><span class="line">      5. search（Object o)： 返回对象在堆栈中的位置，以1为基数 **返回值** int</span><br><span class="line"></span><br><span class="line">#### **Vector**</span><br><span class="line"></span><br><span class="line">他和ArrayLsit类似，是线程安全的</span><br><span class="line"></span><br><span class="line">#### CopyOnWriteArrayList</span><br><span class="line"></span><br><span class="line">线程安全的`ArrayList`变体。在任何修改操作（如添加、设置和删除等）时，它都会复制底层数组。</span><br><span class="line"></span><br><span class="line">### Deque 接口</span><br><span class="line"></span><br><span class="line">是 Java 中的一个接口，属于 Java 集合框架。它允许在队列的两端进行元素的插入和移除操作，这使得它既可以被当作队列使用，也可以作为栈使用。</span><br><span class="line"></span><br><span class="line">#### LinkedList</span><br><span class="line"></span><br><span class="line">#### ArrayDeque</span><br><span class="line"></span><br><span class="line">`ArrayDeque` 是 `Deque` 接口的一个具体实现，使用了可变大小的数组。</span><br><span class="line"></span><br><span class="line">1. 特点</span><br><span class="line"></span><br><span class="line">   1. 高效的双端操作： 允许高校的在队列的两端插入和删除元素，可以实现栈，也可以实现队列</span><br><span class="line">   2. 无容量限制： 虽然是基于数组实现的，但他可以在运行时动态的扩展和缩减其容量</span><br><span class="line">   3. 更快的迭代性能：与基于链表的LinkedList相比，ArrayDeque在迭代访问时更快</span><br><span class="line">   4. 非线程安全： ArrayDeque不是线程安全，如果在多线程环境下使用，需要外部使用</span><br><span class="line">   5. 不允许插入null元素：使用ArrayDeque时不能添加null元素，因为null被用来作为特殊的返回值，以指示队列为空。</span><br><span class="line"></span><br><span class="line">2. 定义</span><br><span class="line"></span><br><span class="line">   1. ```java</span><br><span class="line">      Deque&lt;Integer&gt; deque = new ArrayDeque&lt;&gt;(); </span><br><span class="line">      // 或者，直接使用 ArrayDeque 类型</span><br><span class="line">      ArrayDeque&lt;Integer&gt; arrayDeque = new ArrayDeque&lt;&gt;();</span><br></pre></td></tr></table></figure></li>
+<li>push（E item）：将元素压入堆栈顶部 <strong>返回值</strong>  E</li>
+<li>pop( ) ： 移除并返回堆栈顶部移除的元素 <strong>返回值</strong> E</li>
+<li>peek( ) : 查看堆栈顶部的对象而不移除它 <strong>返回值</strong> E</li>
+<li>empty( )：测试堆栈是否为空 <strong>返回值</strong> boolean</li>
+<li>search（Object o)： 返回对象在堆栈中的位置，以1为基数 <strong>返回值</strong> int</li>
 </ol>
 </li>
 </ol>
 </li>
+</ol>
+<h4 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a><strong>Vector</strong></h4><p>他和ArrayLsit类似，是线程安全的</p>
+<h4 id="CopyOnWriteArrayList"><a href="#CopyOnWriteArrayList" class="headerlink" title="CopyOnWriteArrayList"></a>CopyOnWriteArrayList</h4><p>线程安全的<code>ArrayList</code>变体。在任何修改操作（如添加、设置和删除等）时，它都会复制底层数组。</p>
+<h3 id="Deque-接口"><a href="#Deque-接口" class="headerlink" title="Deque 接口"></a>Deque 接口</h3><p>是 Java 中的一个接口，属于 Java 集合框架。它允许在队列的两端进行元素的插入和移除操作，这使得它既可以被当作队列使用，也可以作为栈使用。</p>
+<h4 id="LinkedList-1"><a href="#LinkedList-1" class="headerlink" title="LinkedList"></a>LinkedList</h4><h4 id="ArrayDeque"><a href="#ArrayDeque" class="headerlink" title="ArrayDeque"></a>ArrayDeque</h4><p><code>ArrayDeque</code> 是 <code>Deque</code> 接口的一个具体实现，使用了可变大小的数组。</p>
+<ol>
+<li><p>特点</p>
+<ol>
+<li>高效的双端操作： 允许高校的在队列的两端插入和删除元素，可以实现栈，也可以实现队列</li>
+<li>无容量限制： 虽然是基于数组实现的，但他可以在运行时动态的扩展和缩减其容量</li>
+<li>更快的迭代性能：与基于链表的LinkedList相比，ArrayDeque在迭代访问时更快</li>
+<li>非线程安全： ArrayDeque不是线程安全，如果在多线程环境下使用，需要外部使用</li>
+<li>不允许插入null元素：使用ArrayDeque时不能添加null元素，因为null被用来作为特殊的返回值，以指示队列为空。</li>
+</ol>
+</li>
+<li><p>定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Deque&lt;Integer&gt; deque = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;(); </span><br><span class="line"><span class="comment">// 或者，直接使用 ArrayDeque 类型</span></span><br><span class="line">ArrayDeque&lt;Integer&gt; arrayDeque = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br></pre></td></tr></table></figure></li>
 <li><p>常用方法</p>
 <ol>
 <li>添加元素<ol>
@@ -455,7 +521,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84JAVA%E7%89%88%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">数据结构JAVA版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#List-%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.</span> <span class="nav-text">List 接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayList"><span class="nav-number">1.1.1.</span> <span class="nav-text">ArrayList</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88Stack"><span class="nav-number">1.1.2.</span> <span class="nav-text">栈Stack</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set%E9%9B%86%E5%90%88"><span class="nav-number">1.2.</span> <span class="nav-text">Set集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map%E9%9B%86%E5%90%88"><span class="nav-number">1.3.</span> <span class="nav-text">Map集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.4.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">方法</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84JAVA%E7%89%88%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">数据结构JAVA版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#List-%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.</span> <span class="nav-text">List 接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayList"><span class="nav-number">1.1.1.</span> <span class="nav-text">ArrayList</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedList"><span class="nav-number">1.1.2.</span> <span class="nav-text">LinkedList</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88Stack"><span class="nav-number">1.1.3.</span> <span class="nav-text">栈Stack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vector"><span class="nav-number">1.1.4.</span> <span class="nav-text">Vector</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CopyOnWriteArrayList"><span class="nav-number">1.1.5.</span> <span class="nav-text">CopyOnWriteArrayList</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deque-%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.2.</span> <span class="nav-text">Deque 接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedList-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">LinkedList</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayDeque"><span class="nav-number">1.2.2.</span> <span class="nav-text">ArrayDeque</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set%E9%9B%86%E5%90%88"><span class="nav-number">1.3.</span> <span class="nav-text">Set集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map%E9%9B%86%E5%90%88"><span class="nav-number">1.4.</span> <span class="nav-text">Map集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.5.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.1.</span> <span class="nav-text">方法</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
