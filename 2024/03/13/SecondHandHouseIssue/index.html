@@ -9,7 +9,7 @@
     
     <title>
         
-            algorithm |
+            SecondHandHouseIssue |
         
         qiushui‘s blog
     </title>
@@ -136,7 +136,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">algorithm</span>
+            <span class="title-hover-animation">SecondHandHouseIssue</span>
         </div>
 
         
@@ -154,7 +154,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2024-02-01 22:53:08
+        <i class="fas fa-edit"></i>&nbsp;2024-03-13 23:28:58
     </span>
     
     
@@ -175,9 +175,16 @@
         
 
         <div class="article-content markdown-body">
-            <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><h3 id="动态规划是一种-从底到顶-的方法-无需使用低柜。"><a href="#动态规划是一种-从底到顶-的方法-无需使用低柜。" class="headerlink" title="动态规划是一种 从底到顶 的方法 无需使用低柜。"></a>动态规划是一种 <strong>从底到顶</strong> 的方法 无需使用低柜。</h3><p>/* 爬楼梯： 动态规划*/</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> DP;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 爬楼梯文同*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">example1</span> &#123;</span><br><span class="line"><span class="keyword">public</span>  <span class="keyword">static</span>    <span class="type">int</span> <span class="title function_">climbingStairsDp</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span> || n== <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//初始化DP表，用于存储子问题的解</span></span><br><span class="line">        <span class="type">int</span>[] dp = <span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        <span class="comment">//初始化状态，没有最小子问题的解</span></span><br><span class="line">        dp[<span class="number">1</span>] =<span class="number">1</span> ;</span><br><span class="line">        dp[<span class="number">2</span>] =<span class="number">2</span> ;</span><br><span class="line">        <span class="comment">// 从较小问题逐渐转移到较大问题</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>; i &lt;= n ; i++) &#123;</span><br><span class="line">            dp[i] = dp[i-<span class="number">1</span>]+dp[i-<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span>climbingStairsDp(<span class="number">3</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;res = &quot;</span> + res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">空间优化版本如下</span><br><span class="line">  <span class="comment">/* 爬楼梯:空间优化后的动态规划 */</span> </span><br><span class="line"><span class="type">int</span> <span class="title function_">climbingStairsDPComp</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line"><span class="keyword">if</span>(n==<span class="number">1</span>||n==<span class="number">2</span>) <span class="keyword">return</span> n;</span><br><span class="line">inta=<span class="number">1</span>,b=<span class="number">2</span>; <span class="keyword">for</span>(inti=<span class="number">3</span>;i&lt;=n;i++)&#123;</span><br><span class="line">inttmp=b; b=a+b; a=tmp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> b; &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+            <h2 id="项目问题统计"><a href="#项目问题统计" class="headerlink" title="项目问题统计"></a>项目问题统计</h2><h4 id="关于bean无法注入"><a href="#关于bean无法注入" class="headerlink" title="关于bean无法注入"></a>关于bean无法注入</h4><p>错误代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error creating bean with name &#x27;roleServiceImpl&#x27; defined in file [/Users/tai_master/IdeaProjects/SecondHandHouse/web-admin/target/classes/com/qiushui/service/imp/RoleServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type &#x27;com.qiushui.dao.RoleDao&#x27; available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: &#123;&#125; </span><br></pre></td></tr></table></figure>
 
+<p>如何解决： spring-mapper导入扫描约束出错，重新修改约束</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javax.servlet.ServletException: org.springframework.web.util.NestedServletException: Request processing failed; nested exception is org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.qiushui.dao.RoleDao.findAll    at org.eclipse.jetty.server.handler.HandlerCollection.handle (HandlerCollection.java:146)    at org.eclipse.jetty.server.handler.HandlerWrapper.handle (HandlerWrapper.java:132)    at org.eclipse.jetty.server.Server.handle (Server.java:502)    at org.eclipse.jetty.server.HttpChannel.handle (HttpChannel.java:370)    at org.eclipse.jetty.server.HttpConnection.onFillable (HttpConnection.java:267)</span><br></pre></td></tr></table></figure>
+
+<p>解决问题：写错了方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2024-03-13 23:22:16.955 [qtp223783590-26] DEBUG org.springframework.web.servlet.DispatcherServlet - GET &quot;/role&quot;, parameters=&#123;&#125; 2024-03-13 23:22:16.956 [qtp223783590-26] DEBUG o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped to org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler@690c719a 2024-03-13 23:22:16.958 [qtp223783590-26] DEBUG org.springframework.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND</span><br></pre></td></tr></table></figure>
+
+<p>解决办法： 页面requestMapping写错</p>
 
         </div>
 
@@ -185,11 +192,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：algorithm</li>
+        <li>Post title：SecondHandHouseIssue</li>
         <li>Post author：秋水</li>
-        <li>Create time：2024-02-01 22:53:08</li>
+        <li>Create time：2024-03-13 23:28:58</li>
         <li>
-            Post link：tai769.github.io2024/02/01/algorithm/
+            Post link：tai769.github.io2024/03/13/SecondHandHouseIssue/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -203,29 +210,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2024/03/13/SecondHandHouseIssue/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">SecondHandHouseIssue</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2024/01/11/leetcode%E5%B8%B8%E7%94%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-JAVA/"
+                           href="/2024/02/01/algorithm/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">leetcode常用数据结构(JAVA)</span>
+                                <span class="post-nav-title-item">algorithm</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -348,7 +340,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E6%98%AF%E4%B8%80%E7%A7%8D-%E4%BB%8E%E5%BA%95%E5%88%B0%E9%A1%B6-%E7%9A%84%E6%96%B9%E6%B3%95-%E6%97%A0%E9%9C%80%E4%BD%BF%E7%94%A8%E4%BD%8E%E6%9F%9C%E3%80%82"><span class="nav-number">1.1.</span> <span class="nav-text">动态规划是一种 从底到顶 的方法 无需使用低柜。</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E9%97%AE%E9%A2%98%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">项目问题统计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Ebean%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5"><span class="nav-number">1.0.1.</span> <span class="nav-text">关于bean无法注入</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
