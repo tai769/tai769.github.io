@@ -9,8 +9,6 @@
     
     <title>
         
-            SecondHandHouseIssue |
-        
         qiushui‘s blog
     </title>
     
@@ -64,7 +62,7 @@
                 <ul class="menu-list">
                     
                         <li class="menu-item">
-                            <a class=""
+                            <a class="active"
                                href="/"
                             >
                                 HOME
@@ -103,7 +101,7 @@
         <ul class="drawer-menu-list">
             
                 <li class="drawer-menu-item flex-center">
-                    <a class=""
+                    <a class="active"
                        href="/">HOME</a>
                 </li>
             
@@ -132,119 +130,50 @@
             <div class="main-content">
 
                 
-                    <div class="fade-in-down-animation">
-    <div class="article-content-container">
-
-        <div class="article-title">
-            <span class="title-hover-animation">SecondHandHouseIssue</span>
-        </div>
-
+                    <div class="home-content-container fade-in-down-animation">
+    <ul class="home-article-list">
         
-            <div class="article-header">
-                <div class="avatar">
-                    <img src="/images/avatar.svg">
-                </div>
-                <div class="info">
-                    <div class="author">
-                        <span class="name">秋水</span>
-                        
-                            <span class="author-label">Lv4</span>
-                        
-                    </div>
-                    <div class="meta-info">
-                        <div class="article-meta-info">
-    <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2024-03-13 23:28:58
-    </span>
-    
-    
+            <li class="home-article-item">
 
-    
-    
-    
-    
-        <span class="article-pv article-meta-item">
-            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
-        </span>
-    
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/08/03/hello-world/">
+                        Hello World
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, yo...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Aug 03 2021 16:13:28 GMT+0800">2021-08-03</span></span>
+        
+        
+    </div>
+
+    <a href="/2021/08/03/hello-world/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
-                    </div>
-                </div>
-            </div>
+            </li>
         
-
-        <div class="article-content markdown-body">
-            <h2 id="项目问题统计"><a href="#项目问题统计" class="headerlink" title="项目问题统计"></a>项目问题统计</h2><h4 id="关于bean无法注入"><a href="#关于bean无法注入" class="headerlink" title="关于bean无法注入"></a>关于bean无法注入</h4><p>错误代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error creating bean with name &#x27;roleServiceImpl&#x27; defined in file [/Users/tai_master/IdeaProjects/SecondHandHouse/web-admin/target/classes/com/qiushui/service/imp/RoleServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type &#x27;com.qiushui.dao.RoleDao&#x27; available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: &#123;&#125; </span><br></pre></td></tr></table></figure>
-
-<p>如何解决： spring-mapper导入扫描约束出错，重新修改约束</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javax.servlet.ServletException: org.springframework.web.util.NestedServletException: Request processing failed; nested exception is org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.qiushui.dao.RoleDao.findAll    at org.eclipse.jetty.server.handler.HandlerCollection.handle (HandlerCollection.java:146)    at org.eclipse.jetty.server.handler.HandlerWrapper.handle (HandlerWrapper.java:132)    at org.eclipse.jetty.server.Server.handle (Server.java:502)    at org.eclipse.jetty.server.HttpChannel.handle (HttpChannel.java:370)    at org.eclipse.jetty.server.HttpConnection.onFillable (HttpConnection.java:267)</span><br></pre></td></tr></table></figure>
-
-<p>解决问题：写错了方法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2024-03-13 23:22:16.955 [qtp223783590-26] DEBUG org.springframework.web.servlet.DispatcherServlet - GET &quot;/role&quot;, parameters=&#123;&#125; 2024-03-13 23:22:16.956 [qtp223783590-26] DEBUG o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped to org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler@690c719a 2024-03-13 23:22:16.958 [qtp223783590-26] DEBUG org.springframework.web.servlet.DispatcherServlet - Completed 404 NOT_FOUND</span><br></pre></td></tr></table></figure>
-
-<p>解决办法： 页面requestMapping写错</p>
-
-        </div>
-
-        
-            <div class="post-copyright-info">
-                <div class="article-copyright-info-container">
-    <ul>
-        <li>Post title：SecondHandHouseIssue</li>
-        <li>Post author：秋水</li>
-        <li>Create time：2024-03-13 23:28:58</li>
-        <li>
-            Post link：tai769.github.io2024/03/13/SecondHandHouseIssue/
-        </li>
-        <li>
-            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
-        </li>
     </ul>
+
+    <div class="home-paginator">
+        <div class="paginator">
+    
+        <a class="prev btn"
+           href="/page/4/"
+        >Prev</a>
+    
+
+    
 </div>
 
-            </div>
-        
-
-        
-            <div class="article-nav">
-                
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2024/03/17/zookeeper%E6%8A%A2%E5%8D%A08080%E7%AB%AF%E5%8F%A3%E9%97%AE%E9%A2%98/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">zookeeper抢占8080端口问题</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
-                
-                    <div class="article-next">
-                        <a class="next"
-                           rel="next"
-                           href="/2024/02/01/algorithm/"
-                        >
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">algorithm</span>
-                                <span class="post-nav-item">Next posts</span>
-                            </span>
-                            <span class="right arrow-icon flex-center">
-                              <i class="fas fa-chevron-right"></i>
-                            </span>
-                        </a>
-                    </div>
-                
-            </div>
-        
-
-        
     </div>
 </div>
 
@@ -289,23 +218,6 @@
         </div>
     </div>
 
-    
-        <div class="post-tools">
-            <div class="post-tools-container">
-    <ul class="tools-list">
-        <!-- TOC aside toggle -->
-        
-            <li class="tools-item page-aside-toggle">
-                <i class="fas fa-outdent"></i>
-            </li>
-        
-
-        <!-- go comment -->
-        
-    </ul>
-</div>
-
-        </div>
     
 
     <div class="right-bottom-side-tools">
@@ -352,14 +264,6 @@
     </div>
 
     
-        <aside class="page-aside">
-            <div class="post-toc-wrap">
-    <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E9%97%AE%E9%A2%98%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">项目问题统计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Ebean%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5"><span class="nav-number">1.0.1.</span> <span class="nav-text">关于bean无法注入</span></a></li></ol></li></ol></li></ol>
-    </div>
-</div>
-        </aside>
-    
 
     <div class="image-viewer-container">
     <img src="">
@@ -372,6 +276,7 @@
 
 
 
+
 <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/dark-light-toggle.js"></script>
 
 
@@ -381,8 +286,6 @@
 
 
 <div class="post-scripts pjax">
-    
-        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/toc.js"></script>
     
 </div>
 
