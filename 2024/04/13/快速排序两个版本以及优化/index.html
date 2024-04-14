@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="秋水">
+    
+    <title>
+        
+            快速排序两个版本以及优化 |
+        
+        qiushui‘s blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"tai769.github.io","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"知识，技能，心态"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                qiushui‘s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">快速排序两个版本以及优化</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">秋水</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2024-04-13 23:07:45
+    </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>快速排序其实存在有两个版本</p>
+<h4 id="版本1-Lomuto版本"><a href="#版本1-Lomuto版本" class="headerlink" title="版本1 Lomuto版本"></a>版本1 Lomuto版本</h4><p>Lomuto分区方案</p>
+<ol>
+<li>基准选择<ol>
+<li>lomuto分区通常选择数组的最后一个元素作为基准值</li>
+</ol>
+</li>
+<li>效率<ol>
+<li>lomuto易于实现，但是比Hoare方法效率低，特别是在处理大量重复元素的数组时。</li>
+</ol>
+</li>
+</ol>
+<p>代码实现如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sorting;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">QuickSortLomuto</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> i , <span class="type">int</span> j)</span>&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> nums[i];</span><br><span class="line">        nums[i] = nums[j];</span><br><span class="line">        nums[j] = tmp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//确定哨兵</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">partition</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> low, <span class="type">int</span> high)</span>&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">pivot</span> <span class="operator">=</span> arr[high]; <span class="comment">// 选择最后一个元素作为基准</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> low -<span class="number">1</span>; <span class="comment">//初始化i指针</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> low; j &lt; high; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &lt;= pivot)&#123;</span><br><span class="line">                i++; <span class="comment">//移动i指针</span></span><br><span class="line">                swap(arr,i,j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//将基准元素放到正确的位置上</span></span><br><span class="line">        swap(arr,i+<span class="number">1</span>,high);</span><br><span class="line">        <span class="keyword">return</span> i+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">quickSort</span><span class="params">(<span class="type">int</span>[] arr, <span class="type">int</span> low, <span class="type">int</span> high)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (low &lt; high) &#123;<span class="comment">//检查是否有超过一个元素需要排序</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">pi</span> <span class="operator">=</span>partition(arr,low,high);</span><br><span class="line">            quickSort(arr,low,pi-<span class="number">1</span>);</span><br><span class="line">            quickSort(arr,pi+<span class="number">1</span>,high);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="版本2-Hoare版本"><a href="#版本2-Hoare版本" class="headerlink" title="版本2 Hoare版本"></a>版本2 Hoare版本</h4><p>hoare分区</p>
+<p>hoare版本是以双指针方法来执行分区，这样会比lomuto版本更少的元素转换</p>
+<p>原理： 一般设置nums[left] 为基准，然后左指针往右走，走到大于基准的数停下，右指针往左走，走到小于基准的数停下，最后i==j时 与基准交换，然后开始继续递归</p>
+<p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> i , <span class="type">int</span> j)</span>&#123;</span><br><span class="line">     <span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> nums[i];</span><br><span class="line">     nums[i] = nums[j];</span><br><span class="line">     nums[j] = tmp;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="type">int</span> <span class="title function_">partition</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> left, <span class="type">int</span> right)</span>&#123;</span><br><span class="line">     <span class="comment">//以nums[left] 作为基准数</span></span><br><span class="line">     <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> left, j = right;</span><br><span class="line">     <span class="keyword">while</span> (i &lt; j)&#123;</span><br><span class="line">         <span class="keyword">while</span> (i &lt; j &amp;&amp; nums[j] &gt;= nums[left])&#123;</span><br><span class="line">             j--; <span class="comment">//从右向左找首个小于基准数的元素</span></span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">while</span> (i &lt; j &amp;&amp; nums[i] &lt;= nums[left])&#123;</span><br><span class="line">             i++;</span><br><span class="line">         &#125;</span><br><span class="line">         swap(nums,i,j);</span><br><span class="line">     &#125;</span><br><span class="line">     swap(nums,i,left);</span><br><span class="line">     <span class="keyword">return</span> i;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">quickSort</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> left, <span class="type">int</span> right)</span>&#123;</span><br><span class="line">     <span class="comment">//子数组长度为1时终止递归</span></span><br><span class="line">     <span class="keyword">if</span> (left &gt;= right)&#123;</span><br><span class="line">         <span class="keyword">return</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">//哨兵划分</span></span><br><span class="line">     <span class="type">int</span> <span class="variable">pivot</span> <span class="operator">=</span> partition(nums,left,right);</span><br><span class="line">     quickSort(nums,left,pivot-<span class="number">1</span>);</span><br><span class="line">     quickSort(nums,pivot+<span class="number">1</span>,right);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="版本3-Hoare版本优化"><a href="#版本3-Hoare版本优化" class="headerlink" title="版本3 Hoare版本优化"></a>版本3 Hoare版本优化</h4><p><strong>原因</strong> 快速排序在某些输入下的时间效率可能降低。举一个极端例子，假设输入数组是完全倒序的，由于选择最左端元素为基准，那么哨兵在划分完之后，基准数被交换到最后端，导致左子数组长度为n-1 如此递归，每轮哨兵规划完成之后，右子数组的长度都为0</p>
+<p><strong>解决方案</strong>  优化哨兵划分中的基准数选取策略</p>
+<p>代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">medianThree</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> left, <span class="type">int</span> mid , <span class="type">int</span> right)</span>&#123;</span><br><span class="line">     <span class="comment">//此处使用异或运算来简化代码</span></span><br><span class="line">     <span class="comment">//异或规则为0 ^0 = 1^1 = 0, 0^1 = 1^0 =1</span></span><br><span class="line">     <span class="comment">/*</span></span><br><span class="line"><span class="comment">     这行代码的逻辑是：检查 nums[left] 与 nums[mid] 和 nums[left]</span></span><br><span class="line"><span class="comment">     与 nums[right] 的比较结果是否不同。如果其中一个是 true 而另一个是 false，</span></span><br><span class="line"><span class="comment">     即 nums[left] 落在 nums[mid] 和 nums[right] 之间，那么 nums[left] 可能是中间值。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">     <span class="keyword">if</span> ((nums[left] &lt; nums[mid]) ^ (nums[left] &lt; nums[right])) <span class="keyword">return</span> left;</span><br><span class="line">     <span class="keyword">else</span> <span class="keyword">if</span> ((nums[mid] &lt; nums[left]) ^ (nums[mid] &lt; nums[right])) <span class="keyword">return</span> mid;</span><br><span class="line">     <span class="keyword">else</span> <span class="keyword">return</span> right;</span><br><span class="line">     <span class="comment">//同理  要不是mid,要不就是right 找一个中间值，防止出现极端问题</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>哨兵实现如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">partitionThree</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> left, <span class="type">int</span> right)</span>&#123;</span><br><span class="line">       <span class="comment">//选取三个候选元素的中位数</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">med</span> <span class="operator">=</span> medianThree(nums,left,(left+right)/<span class="number">2</span>,right);</span><br><span class="line">       <span class="comment">//将中位数交换到数组的最左端</span></span><br><span class="line">       swap(nums,left,med);</span><br><span class="line">       <span class="comment">//以 nums[left]作为基准数</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> left, j = right;</span><br><span class="line">       <span class="keyword">while</span> (i &lt; j)&#123;</span><br><span class="line">           <span class="keyword">while</span> (i &lt; j &amp;&amp; nums[j] &gt;= nums[left] ) j--;</span><br><span class="line">           <span class="keyword">while</span> (i &lt; j &amp;&amp; nums[i] &lt;= nums[left]) i++;</span><br><span class="line">           swap(nums,i,j);</span><br><span class="line">           <span class="comment">//3  1 2 5  4 8</span></span><br><span class="line">       &#125;</span><br><span class="line">       swap(nums,i,left);</span><br><span class="line">       <span class="keyword">return</span> i;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="hoare版本-尾递归优化"><a href="#hoare版本-尾递归优化" class="headerlink" title="hoare版本 尾递归优化"></a>hoare版本 尾递归优化</h4><p><strong>原因</strong>  在某些输入下，快速排序可能占用的额空间较多。以完全倒序的输出数组为例子，由于每轮哨兵划分后右子数组长度为0，递归树的高度会达到n-1，此时需要占用O(n)大小的栈帧空间</p>
+<p>为了防止栈帧空间的积累，我们可以在每轮哨兵排序后，比较两个子数组的长度，仅对较短的子数组进行递归。由于较短子数组的长度不会超过 𝑛/2 ，因此这种方法能确保递归深度不超过 log 𝑛 ，从而将最差空 间复杂度优化至 𝑂(log 𝑛) 。</p>
+<p>代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">quickSotrWei</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> left, <span class="type">int</span> right)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (left &gt;= right) <span class="keyword">return</span>; <span class="comment">//子数组长度为1是终止递归</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">while</span> (left &lt; right)&#123;</span><br><span class="line">          <span class="comment">//哨兵划分操作</span></span><br><span class="line">          <span class="type">int</span> <span class="variable">pivot</span> <span class="operator">=</span> partitionThree(nums,left,right);</span><br><span class="line">          <span class="comment">//对两个子数组中较短的那个执行快排</span></span><br><span class="line">          <span class="keyword">if</span> (pivot - left &lt; right - pivot)&#123;</span><br><span class="line">              quickSort(nums,left,pivot-<span class="number">1</span>);</span><br><span class="line">              left = pivot+<span class="number">1</span>; <span class="comment">// 生育为排序空间为[pivot+1,right]</span></span><br><span class="line">          &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">              quickSort(nums,pivot+<span class="number">1</span>,right);</span><br><span class="line">              right = pivot -<span class="number">1</span>;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;	</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：快速排序两个版本以及优化</li>
+        <li>Post author：秋水</li>
+        <li>Create time：2024-04-13 23:07:45</li>
+        <li>
+            Post link：tai769.github.io2024/04/13/快速排序两个版本以及优化/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2024/04/08/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E4%BD%93%E7%B1%BB%E8%A6%81%E5%AE%9E%E7%8E%B0%E5%BA%8F%E5%88%97%E5%8C%96%E6%8E%A5%E5%8F%A3/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">为什么实体类要实现序列化接口</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>&nbsp;-&nbsp;
+            
+            2024&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">秋水</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%88%E6%9C%AC1-Lomuto%E7%89%88%E6%9C%AC"><span class="nav-number">1.1.</span> <span class="nav-text">版本1 Lomuto版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%88%E6%9C%AC2-Hoare%E7%89%88%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">版本2 Hoare版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%88%E6%9C%AC3-Hoare%E7%89%88%E6%9C%AC%E4%BC%98%E5%8C%96"><span class="nav-number">1.3.</span> <span class="nav-text">版本3 Hoare版本优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hoare%E7%89%88%E6%9C%AC-%E5%B0%BE%E9%80%92%E5%BD%92%E4%BC%98%E5%8C%96"><span class="nav-number">1.4.</span> <span class="nav-text">hoare版本 尾递归优化</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
