@@ -9,7 +9,7 @@
     
     <title>
         
-            前后端分离架构的理解 |
+            自定义返回结果集 |
         
         qiushui‘s blog
     </title>
@@ -136,7 +136,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">前后端分离架构的理解</span>
+            <span class="title-hover-animation">自定义返回结果集</span>
         </div>
 
         
@@ -154,7 +154,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2024-04-15 09:55:28
+        <i class="fas fa-edit"></i>&nbsp;2024-04-15 22:02:57
     </span>
     
     
@@ -175,14 +175,24 @@
         
 
         <div class="article-content markdown-body">
-            <p>首先要离理解，前后端分离是一种架构，他是一种架构思想，是我们一个项目是否为前后端分离架构。</p>
-<p>最简单的理解就是：我们后台不涉及任何前端的操作，在这种程度上，我们可以短暂的认为是前后端思想。</p>
-<p>面试表达：我们先从软件结构来说，从浏览器诞生之后，有两种网站的展示模式</p>
+            <p>首先明白为什么要自定义返回结果集</p>
 <ol>
-<li>纯展示类  2.  带有业务的操作功能  针对这两种情况，服务器端也对应出现了两种情况， 1. 单纯的html文件服务</li>
-<li>动态htm服务（带有业务逻辑）也就导致不同用户在看同一个网址的时候，可能导致页面的布局是一样的，但内容不一样，所以就诞生了后端语言java，php，所谓的前后端分离，就是针对第二种情况的，因为只有第二情况需要动态的生成html，前后端分离之前，后端应用会根据用户的请求生成用户请求的网址，生成样式和布局，相同的数据，不同的html代码，也正因如此，这些后段语言为了方便生成这种冗长的html代码，分别封装了各自的模版语言，比如jsp，thymeleaf等，这就导致了前端人员或多或少的需要了解一些模版语言，而且由于，前端同事提交html代码页面后，后端同学修改才能使用，也就是说后端需要加入一些模版代码，</li>
+<li>前后端进行交互的时候，便于交流</li>
+<li>后端与后端之间的交互</li>
+<li>使用不同的技术栈之间的交互</li>
 </ol>
-<p>前后端分离呢，当用户请求一个网址，系统会把固定的html文件原封不动的读取出来，并且相应给客户，这一步不走后台的应用，一般就是apache或nginx这样的中间件，但区别在于html文件中存在大量基于ajax技术的二次获取业务数据的代码，这些代码会被浏览器执行，二轮请求的过程中，可能会包含一个或者多个ajax请求，但目的都是为了获取每个用户不同的业务数据。从而解决前后端代码耦合在一起的问题。</p>
+<p><strong>方法实现如下</strong></p>
+<ol>
+<li><p>定义一个状态接口StaruCode</p>
+<p>​    代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.qiushui.Result;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">StatusCode</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getCode</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getMsg</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>实现接口，并且定义返回状态码和消息</p>
+<p>代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.qiushui.Result;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> jdk.nashorn.internal.objects.annotations.Getter;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">ResultCode</span> <span class="keyword">implements</span> <span class="title class_">StatusCode</span>&#123;</span><br><span class="line"></span><br><span class="line">    SUCCESS(<span class="number">1000</span>, <span class="string">&quot;请求成功&quot;</span>),</span><br><span class="line"></span><br><span class="line">    FAILED(<span class="number">1001</span>, <span class="string">&quot;请求失败&quot;</span>),</span><br><span class="line">    VALIDATE_ERROR(<span class="number">1002</span>, <span class="string">&quot;参数校验失败&quot;</span>),</span><br><span class="line">    RESPONSE_PACK_ERROR(<span class="number">1003</span>, <span class="string">&quot;response返回包装失败&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> code;</span><br><span class="line">    <span class="keyword">private</span> String msg;</span><br><span class="line"></span><br><span class="line">    ResultCode(<span class="type">int</span> code, String msg)&#123;</span><br><span class="line">        <span class="built_in">this</span>.code=code;</span><br><span class="line">        <span class="built_in">this</span>.msg = msg;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getCode</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getMsg</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.msg;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>封装结果集</p>
+<p>代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.qiushui.Result;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ResultVo</span> &#123;</span><br><span class="line">    <span class="comment">//状态码</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> code;</span><br><span class="line">    <span class="comment">//状态信息</span></span><br><span class="line">    <span class="keyword">private</span> String msg;</span><br><span class="line">    <span class="comment">//返回对象</span></span><br><span class="line">    <span class="keyword">private</span> Object data;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//默认返回成功</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ResultVo</span><span class="params">(Object data)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.code=ResultCode.SUCCESS.getCode();</span><br><span class="line">        <span class="built_in">this</span>.msg = ResultCode.SUCCESS.getMsg();</span><br><span class="line">        <span class="built_in">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回指定状态码</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ResultVo</span><span class="params">(StatusCode statusCode, Object data)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.code=statusCode.getCode();</span><br><span class="line">        <span class="built_in">this</span>.msg = statusCode.getMsg();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//只返回状态码</span></span><br><span class="line">    <span class="comment">// 只返回状态码</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ResultVo</span><span class="params">(StatusCode statusCode)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.code = statusCode.getCode();</span><br><span class="line">        <span class="built_in">this</span>.msg = statusCode.getMsg();</span><br><span class="line">        <span class="built_in">this</span>.data = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
 
         </div>
 
@@ -190,11 +200,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：前后端分离架构的理解</li>
+        <li>Post title：自定义返回结果集</li>
         <li>Post author：秋水</li>
-        <li>Create time：2024-04-15 09:55:28</li>
+        <li>Create time：2024-04-15 22:02:57</li>
         <li>
-            Post link：tai769.github.io2024/04/15/前后端分离架构的理解/
+            Post link：tai769.github.io2024/04/15/自定义返回结果集/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -208,29 +218,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2024/04/15/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E9%9B%86/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">自定义返回结果集</span>
-                                <span class="post-nav-item">Prev posts</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2024/04/13/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E4%B8%A4%E4%B8%AA%E7%89%88%E6%9C%AC%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8C%96/"
+                           href="/2024/04/15/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%9E%B6%E6%9E%84%E7%9A%84%E7%90%86%E8%A7%A3/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">快速排序两个版本以及优化</span>
+                                <span class="post-nav-title-item">前后端分离架构的理解</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
