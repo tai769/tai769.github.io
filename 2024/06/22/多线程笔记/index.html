@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="秋水">
+    
+    <title>
+        
+            多线程笔记 |
+        
+        qiushui‘s blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"tai769.github.io","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"知识，技能，心态"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                qiushui‘s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">多线程笔记</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">秋水</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2024-06-22 21:58:36
+    </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h3><p>进程是程序运行资源分配的最小单位</p>
+<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>cpu调度的最小单位</p>
+<h3 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a>上下文切换</h3><p>上下文切换是指 CPU 从一个线程转到另一个线程时，需要保存当前线程的上下文状态，恢复另一个线程的上下文状态，以便于下一次恢复执行该线程时能够正确地运行。 </p>
+<p>在多线程编程中，上下文切换是一种常见的操作，上下文切换通常是指在一个 CPU 上，由于多个线程共享 CPU 时间片，当一个线程的时间片用完后，需要切换到另一个线程运行。此时需要保存当前线程的状态信息，包括程序计数器、寄存器、栈指针等，以便下次继续执行该线程时能够恢复到正确的执行状态。同时，需要将切换到的线程的状态信息恢复，以便于该线程能够正确运行。</p>
+<p><strong>在多线程中，上下文切换的开销比直接用单线程大，因为在多线程中，需要保存和恢复更多的上下文信息。过多的上下文切换会降低系统的运行效率，因此需要尽可能减少上下文切换的次数。</strong></p>
+<h3 id="面试：进程之间的通信IPC"><a href="#面试：进程之间的通信IPC" class="headerlink" title="面试：进程之间的通信IPC"></a>面试：进程之间的通信IPC</h3><ol>
+<li>管道 ： 匿名管道（主要用于父子进程之间），命名管道（无亲缘之间的通信）</li>
+<li>信号通信</li>
+<li>消息队列</li>
+<li>共享内存</li>
+<li>信号量</li>
+<li>套接字</li>
+</ol>
+<h3 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h3><p>并发： 应用能够交替执行不同的任务</p>
+<p>并行：应用能够同时执行不同的任务</p>
+<h3 id="新启动线程有几种方式"><a href="#新启动线程有几种方式" class="headerlink" title="新启动线程有几种方式"></a>新启动线程有几种方式</h3><p>官方的说法是在java中有两种创建方式，一种是继承Thread类，另一种是实现Runnable接口，是在Thread类的注释中写道的。</p>
+<p>当然本质上实现线程只有一种方式，都是通过New Thread（）创建线程对象，调用Thread.start启动线程。</p>
+<p>至于基于callable接口的方式，因为最终是要把实现了的callable接口的对象通过FutureTask包装成runnable，最后交给Thread执行，所以这个其实我认为属于Runnable接口的，至于线程池，本质上是一种池化技术，是资源的服用，和新启动线程没什么关系。</p>
+<h3 id="线程结束的方式"><a href="#线程结束的方式" class="headerlink" title="线程结束的方式"></a>线程结束的方式</h3><h4 id="安全的方式"><a href="#安全的方式" class="headerlink" title="安全的方式"></a>安全的方式</h4><p>其他线程通过调用某个线程的Interrupt（）方法对其进行中断操作，线程会检查自身的中断标志位是否被设置为true来进行响应。</p>
+<p>线程通过IsInterrupt（）来进行判断是否被中断，也可以调用静态方法Thread.interrupted()来判断当前线程是否被中断，不过Thread.interrupted()会同时将中断标识位改写为false。</p>
+<p>如果一个线程处于阻塞状态(比如线程调用了 sleep，jon，wait等) ，则在线程检查中断标识时如果发现中断标识位为true，则会在阻塞方法中抛出InterruptedException异常，并且在抛出异常后会立即将线程的中断标识位清楚，重新设置为false。</p>
+<p>​    不建议自定义一个取消标识位来阻止线程的运行，因为run方法里有阻塞调用时会无法很快检测到取消标识，线程必须从阻塞调用返回后，才会检查这个取消标识，这种情况，使用中断更好，因为</p>
+<ol>
+<li>一般的阻塞方法，如sleep本身就支持中断的检查</li>
+<li>检查中断位的状态和取消标识位没什么区别，用中断位的状态还可以避免声明取消标识位，减少资源的消耗。 </li>
+</ol>
+<h3 id="线程的调度"><a href="#线程的调度" class="headerlink" title="线程的调度"></a>线程的调度</h3><p>线程调度是指系统为线程分配cpu使用权的过程，主要调度方式有两种</p>
+<ol>
+<li>协同式线程调度</li>
+<li>抢占式线程调度</li>
+</ol>
+<p><strong>协同式线程调度</strong></p>
+<p>一个线程进来后，执行时间由线程自己本身决定，执行任务到结束后，才会主动通知下一个线程开始执行，好处就是实现简单，由于线程要把自己的事情做完才会通知系统进行线程切换，所以没有线程同步的问题，坏处就是如果一个线程出现了问题，系统就会一直阻塞。</p>
+<p><strong>抢占式线程调度</strong></p>
+<p>抢占式线程调度是指，每个线程的执行时间以及是否切换由系统决定，在这个情况下，线程的执行时间不可控，所以不会有一个线程导致整个进程阻塞的问题。</p>
+<h3 id="对象锁和类锁的区别"><a href="#对象锁和类锁的区别" class="headerlink" title="对象锁和类锁的区别"></a>对象锁和类锁的区别</h3><p>​    对象锁事用于对象实例方法，或者一个对象实例上的，类锁事用于类的静态方法或者一个类的class对象上。</p>
+<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p>volatile保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。</p>
+<h4 id="试用场景"><a href="#试用场景" class="headerlink" title="试用场景"></a>试用场景</h4><p>​    一个线程写，多个线程读取</p>
+<h3 id="同步块"><a href="#同步块" class="headerlink" title="同步块"></a>同步块</h3><p>同步代码块的语法如下：</p>
+<p>synchronized (对象) {</p>
+<p>// 需要同步的代码块</p>
+<p>}</p>
+<p>在同步代码块中，我们需要指定一个对象作为锁</p>
+<h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><p><code>ThreadLocal</code> 是 Java 提供的一个类，用于创建线程局部变量。它为每个使用该变量的线程都提供一个独立的变量副本。这种机制在多线程编程中非常有用，因为它可以避免多个线程同时访问和修改同一个变量，从而防止竞争条件和数据不一致问题。</p>
+<h3 id="ThreadLocal内部是如何实现的"><a href="#ThreadLocal内部是如何实现的" class="headerlink" title="ThreadLocal内部是如何实现的"></a>ThreadLocal内部是如何实现的</h3><p>ThreadLocal内部每一个线程都有自己的ThreadLocalMap，用于存储和当前线程相关的ThreadLocal变量，</p>
+<h6 id="ThreadLocalMap类"><a href="#ThreadLocalMap类" class="headerlink" title="ThreadLocalMap类"></a>ThreadLocalMap类</h6><ol>
+<li><p><code>ThreadLocalMap</code> 是 <code>ThreadLocal</code> 内部的一个静态类，负责存储每个线程的局部变量。它类似于一个定制的哈希表，使用 <code>ThreadLocal</code> 对象作为键，存储线程局部变量的值。</p>
+</li>
+<li><p><code>ThreadLocalMap</code> 的键是 <code>ThreadLocal</code> 对象的弱引用。这意味着如果没有其他强引用指向 <code>ThreadLocal</code> 对象，当垃圾回收发生时，这些键可以被回收，以防止内存泄漏。</p>
+</li>
+<li><p><code>ThreadLocalMap</code> 使用开放地址法处理哈希冲突，即当发生哈希冲突时，通过线性探测寻找下一个空槽。</p>
+</li>
+</ol>
+<h3 id="ThreadLocal是实现保证事务的呢"><a href="#ThreadLocal是实现保证事务的呢" class="headerlink" title="ThreadLocal是实现保证事务的呢"></a>ThreadLocal是实现保证事务的呢</h3><p> 是因为ThreadLocal内部传入name参数，创建了线程副本，实现了与线程进行绑定。</p>
+<h3 id="ThreadLocal-在运行过程中可能会产生内存泄漏"><a href="#ThreadLocal-在运行过程中可能会产生内存泄漏" class="headerlink" title="ThreadLocal 在运行过程中可能会产生内存泄漏"></a>ThreadLocal 在运行过程中可能会产生内存泄漏</h3><p>什么是内存泄漏呢，线程跑完了，gc没有清理掉强引用的数据，所以这个时候如果在执行完全部的代码的时候，可以使用remove()方法。</p>
+<h3 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h3><p>CAS（Compare and Swap）是一种并发控制机制，通常用于多线程编程或并发环境中。它用于解决多个线程同时修改同一内存位置可能引发的竞态条件（race condition）问题。</p>
+<p>cas操作包括三个步骤：</p>
+<ol>
+<li>比较：首先，他会比较内存中的某个值与预期的值是否相等</li>
+<li>交换：如果相等，就把新的值写入内存位置，如果不想等，则不做任何操作</li>
+<li>返回结果：CAS操作会返回操作是否成功的标志，通常是一个布尔值，表示是否成功更新了内存中的值。</li>
+</ol>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>优点 </p>
+<ol>
+<li>高效，避免了线程阻塞和上下文切换的开销 <strong>但实际java实现的时候尝试到一定次数失败之后就会自动阻塞</strong></li>
+<li>避免了传统锁带来的死锁，优先级反转等问题</li>
+</ol>
+<p>缺点</p>
+<ol>
+<li>自旋开销，多个线程频繁竞争一个共享资源，cpu资源浪费</li>
+<li>ABA问题</li>
+</ol>
+<h4 id="CAS会出现的三个大问题"><a href="#CAS会出现的三个大问题" class="headerlink" title="CAS会出现的三个大问题"></a>CAS会出现的三个大问题</h4><ol>
+<li>ABA问题，版本戳，增加一个标志位，每次更改都更新标志</li>
+<li>循环时间太长，cpu占用内存高</li>
+<li>只能保证一个共享变量的原子操作</li>
+</ol>
+<h4 id="关于CAS和Syn场景问题："><a href="#关于CAS和Syn场景问题：" class="headerlink" title="关于CAS和Syn场景问题："></a>关于CAS和Syn场景问题：</h4><p>如果是一个迅速响应1000个线程的情况下，Syn会比CAS更快，大部分CAS线程操作不成功，在空转，占用了大量的CPU，Syn会让线程进入阻塞，这种情况下，CAS速度不如Syn快。CAS偏向于轻量级锁。</p>
+<h4 id="原子操作在处理并发更新同一个数值时确实可能会导致写热点问题"><a href="#原子操作在处理并发更新同一个数值时确实可能会导致写热点问题" class="headerlink" title="原子操作在处理并发更新同一个数值时确实可能会导致写热点问题"></a>原子操作在处理并发更新同一个数值时确实可能会导致写热点问题</h4><p>写热点指的是高并发情况下，多个线程频繁地对同一个数据进行写操作，导致性能下降或产生竞争瓶颈。为了解决这一问题，可以采取以下几种策略：</p>
+<ol>
+<li>使用分段锁（Segmented Locks）    </li>
+<li>热点数据缓存</li>
+<li>分散热点（Sharding/Partitioning）</li>
+<li>无锁数据结构</li>
+</ol>
+<h3 id="java提高原子操作的办法"><a href="#java提高原子操作的办法" class="headerlink" title="java提高原子操作的办法"></a>java提高原子操作的办法</h3><h4 id="关于LongAdder和AtmoicLong相比"><a href="#关于LongAdder和AtmoicLong相比" class="headerlink" title="关于LongAdder和AtmoicLong相比"></a>关于LongAdder和AtmoicLong相比</h4><p><code>LongAdder</code> 通过将计数器分解成多个独立的变量（cells），并由多个线程分别对这些变量进行更新，从而减少竞争。当需要获取总和时，它将所有变量的值累加起来。因此，在高并发情况下，<code>LongAdder</code> 通常比 <code>AtomicLong</code> 更高效</p>
+<p><strong>特性</strong> </p>
+<ol>
+<li><p><strong>高并发性能</strong>：在高并发场景下，<code>LongAdder</code> 通过减少线程间的竞争来提高性能。</p>
+</li>
+<li><p><strong>最终一致性</strong>：<code>LongAdder</code> 提供的值是一个估计值，随着时间的推移，它会趋近于准确值。</p>
+</li>
+<li><p><strong>线程安全</strong>：<code>LongAdder</code> 是线程安全的，可以在多个线程中并发使用</p>
+</li>
+</ol>
+<p>#####. <code>LongAdder</code> 是 <code>java.util.concurrent</code> 包中提供的一种高效计数器，用于解决高并发场景下的写竞争问题。与 <code>AtomicLong</code> 相比，<code>LongAdder</code> 通过分段累加来减少竞争，从而提高并发性能。然而，<code>LongAdder</code> 在某些场景下可能无法完全替代 <code>AtomicLong</code>。</p>
+<h3 id="LongAdder-的工作原理"><a href="#LongAdder-的工作原理" class="headerlink" title="LongAdder 的工作原理"></a>LongAdder 的工作原理</h3><p><code>LongAdder</code> 通过将计数器分解成多个独立的变量（cells），并由多个线程分别对这些变量进行更新，从而减少竞争。当需要获取总和时，它将所有变量的值累加起来。因此，在高并发情况下，<code>LongAdder</code> 通常比 <code>AtomicLong</code> 更高效。</p>
+<h3 id="LongAdder-的特性"><a href="#LongAdder-的特性" class="headerlink" title="LongAdder 的特性"></a>LongAdder 的特性</h3><ul>
+<li><strong>高并发性能</strong>：在高并发场景下，<code>LongAdder</code> 通过减少线程间的竞争来提高性能。</li>
+<li><strong>最终一致性</strong>：<code>LongAdder</code> 提供的值是一个估计值，随着时间的推移，它会趋近于准确值。</li>
+<li><strong>线程安全</strong>：<code>LongAdder</code> 是线程安全的，可以在多个线程中并发使用。</li>
+</ul>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><p>下面是一个使用 <code>LongAdder</code> 的示例代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">java</span><br><span class="line">复制代码</span><br><span class="line">import java.util.concurrent.atomic.LongAdder;</span><br><span class="line"></span><br><span class="line">public class LongAdderExample &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        LongAdder adder = new LongAdder();</span><br><span class="line"></span><br><span class="line">        // 启动多个线程来进行计数</span><br><span class="line">        for (int i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">            new Thread(() -&gt; adder.increment()).start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 等待所有线程完成</span><br><span class="line">        try &#123;</span><br><span class="line">            Thread.sleep(1000);</span><br><span class="line">        &#125; catch (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 获取计数值</span><br><span class="line">        System.out.println(&quot;Counter value: &quot; + adder.sum());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="LongAdder-与-AtomicLong-的比较"><a href="#LongAdder-与-AtomicLong-的比较" class="headerlink" title="LongAdder 与 AtomicLong 的比较"></a>LongAdder 与 AtomicLong 的比较</h3><ul>
+<li><strong>性能</strong>：在高并发情况下，<code>LongAdder</code> 的性能通常优于 <code>AtomicLong</code>，因为它减少了竞争。</li>
+<li><strong>准确性</strong>：<code>AtomicLong</code> 提供精确的值，而 <code>LongAdder</code> 在高并发场景下可能提供一个估计值，但最终会趋近于准确值。</li>
+<li><strong>适用场景</strong>：如果需要精确的计数，且并发量不高，<code>AtomicLong</code> 更适合；如果并发量很高，且允许有小幅度的估计误差，<code>LongAdder</code> 是更好的选择</li>
+</ul>
+<h5 id="具体场景"><a href="#具体场景" class="headerlink" title="具体场景"></a>具体场景</h5><p>多个并发用户同时修改同一行数据，使用CAS会增加冲突重试的次数，而传统的数据库锁机制（如行级锁或表级锁）能够更有效地管理并发访问。</p>
+<h3 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h3><p>实现线程安全的方法</p>
+<ol>
+<li>线程封闭<ol>
+<li>栈封闭</li>
+<li>ThreadLocal</li>
+</ol>
+</li>
+<li>使用无状态的类</li>
+<li>让类不可变</li>
+<li>加锁和CAS</li>
+</ol>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>是指两个或者两个以上的进程，由于竞争资源或者由于彼此通信从而造成一种阻塞状态，若无外力作用，他们都将无法进行下去，此时称系统处于死锁或者产生了死锁。</p>
+<p><strong>总结</strong></p>
+<ol>
+<li> 死锁是必然发生在多个操作者争夺多个资源的情况，单线程不会有死锁，单资源也不会</li>
+<li>争夺资源的顺序不对，如果顺序一样，也不会死锁</li>
+<li>争夺者对拿到的资源不放手。</li>
+</ol>
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><ol>
+<li>打破顺序： 动态顺序死锁（自己写个判断）让他一定按照顺序</li>
+<li>显示锁，里面有个方法trylock（）拿到锁就全部执行，拿不到就全部释放锁</li>
+</ol>
+<h3 id="活锁"><a href="#活锁" class="headerlink" title="活锁"></a>活锁</h3><h3 id="线程饥饿"><a href="#线程饥饿" class="headerlink" title="线程饥饿"></a>线程饥饿</h3><p>低优先级的线程，拿不到锁。</p>
+<h3 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a>高并发</h3><h4 id="高并发写"><a href="#高并发写" class="headerlink" title="高并发写"></a>高并发写</h4><ol>
+<li>数据分片</li>
+<li></li>
+</ol>
+<h3 id="公平锁和非公平锁"><a href="#公平锁和非公平锁" class="headerlink" title="公平锁和非公平锁"></a>公平锁和非公平锁</h3><h4 id="公平锁"><a href="#公平锁" class="headerlink" title="公平锁"></a>公平锁</h4><p>线程在获取锁的时候，按照等待的顺序获取锁</p>
+<h4 id="非公平锁"><a href="#非公平锁" class="headerlink" title="非公平锁"></a>非公平锁</h4><p>线程在获取锁时，不按照等待的先后顺序获取锁，而是随机获取锁，ReentrantLock默认是非公平锁。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>(); <span class="comment">//默认非公平</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">ReentrantLock</span> <span class="variable">lock</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReentrantLock</span>(<span class="literal">true</span>);<span class="comment">//公平锁</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h3><p>可重入锁，又名递归锁，是指同一个线程在外层方法获取锁的时候，在进入该线程的内层方法会自动获取锁（前提锁对象得是同一个对象），不会因为之前已经获取过还没有释放而阻塞，Java中ReentrantLock和Synchronized都是可重入锁，可重入锁的一个优点就是可一定程度避免死锁。在实际开发中，可重入锁常常应用于递归操作，调用同一个类中的其他方法，锁嵌套等场景中。</p>
+<h3 id="等待唤醒机制"><a href="#等待唤醒机制" class="headerlink" title="等待唤醒机制"></a>等待唤醒机制</h3><ol>
+<li>Synchronizd + object.wait()/object.notifyAll()</li>
+<li>ReentrantLock + condition.await()/ contain.signal/signalAll</li>
+</ol>
+<h3 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h3><p>AQS（AbstractQueuedSynchronizer）是Java中的一个基础框架，用于构建锁和同步器。<code>ReentrantLock</code>是基于AQS实现的.</p>
+<p>ReentrantLock 是如何实现的</p>
+<p>一个线程进来，获取cas之后，其他线程进行cas操作，如果我们使用了可重入锁，在判断阶段会有判断，如果没有，别的线程会一直自旋，到一定次数之后，就进入阻塞队列（双向链表实现的）。</p>
+<p><strong>流程</strong> </p>
+<p>线程1   -&gt;.   cas操作，加锁成功  -&gt;        state = 1         -&gt;     exclusiveOwnerThread = 线程一（可重入锁的判断依据) </p>
+<p>线程2   -&gt;   cas操作 加锁失败.  -&gt;    入队阻塞    -&gt;    阻塞前需要设置前一个线程的waitState=-1  -&gt;.     LockSupport.park(this)阻塞   </p>
+<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><ol>
+<li>阻塞等待队列</li>
+<li>共享/独占</li>
+<li>公平/非公平</li>
+<li>可重入</li>
+<li>允许中断</li>
+</ol>
+<h4 id="AQS获取的下一个阻塞的线程是头节点吗"><a href="#AQS获取的下一个阻塞的线程是头节点吗" class="headerlink" title="AQS获取的下一个阻塞的线程是头节点吗"></a>AQS获取的下一个阻塞的线程是头节点吗</h4><p>AQS获取的下一个阻塞的线程不是头节点，是头节点的下一个节点，然后断开链接，后续让gc </p>
+<h3 id="读写锁ReadANdWrite"><a href="#读写锁ReadANdWrite" class="headerlink" title="读写锁ReadANdWrite"></a>读写锁ReadANdWrite</h3><p>AQS</p>
+<p><strong>互斥</strong> ： tryAcquire，tryRelease 写锁</p>
+<p><strong>共享</strong> ： tryAcquireShared， tryReleaseShared 读锁</p>
+<h4 id="读写锁的判断以及如何实现可重入锁"><a href="#读写锁的判断以及如何实现可重入锁" class="headerlink" title="读写锁的判断以及如何实现可重入锁"></a>读写锁的判断以及如何实现可重入锁</h4><p>首先 写锁和读锁是互斥的，为了判断读写锁的状态，我们可以检查int的高低位，int 4个字节 ，32位，高16位为读锁，低16位为写锁</p>
+<h4 id="读写锁降级"><a href="#读写锁降级" class="headerlink" title="读写锁降级"></a>读写锁降级</h4><p>写 的过程中可以获取读锁， 写锁修改缓冲之后，读锁可以读取到最新的数据 </p>
+<p><strong>检查步骤</strong></p>
+<p>写锁获取锁之前，首先检查数是否大于0 如果大于0且低16位为0，则说明有写锁，然后可重入写锁，是通过ThreadLocal定义线程持有者，然后检查是否是同一个线程，是的话重入次数+1</p>
+<p><img src="/Users/tai_master/Desktop/qiushui/source/images/%E8%AF%BB%E5%86%99%E9%94%81.jpeg" alt="读写锁"></p>
+<h4 id="StampedLock锁"><a href="#StampedLock锁" class="headerlink" title="StampedLock锁"></a>StampedLock锁</h4><p>读锁，乐观读（无锁），支持锁升级</p>
+<p>如何实现：</p>
+<ol>
+<li>首先获取乐观锁（无锁状态读取数据），在最后判断是否有其他写锁发生，如果有加一个悲观读锁，然后更新数据。</li>
+</ol>
+<h3 id="MESA"><a href="#MESA" class="headerlink" title="MESA"></a>MESA</h3><p>管程模型  JAVA中的AQS模型就采用了管程模型</p>
+<p><img src="/Users/tai_master/Desktop/qiushui/source/images/%E7%AE%A1%E7%A8%8B%E6%A8%A1%E5%9E%8B.png" alt="管程模型"></p>
+<h2 id="并发容器"><a href="#并发容器" class="headerlink" title="并发容器"></a>并发容器</h2><h3 id="同步容器"><a href="#同步容器" class="headerlink" title="同步容器"></a>同步容器</h3><p>同步容器简单的理解为通过Synchronized来实现同步的容器</p>
+<h3 id="并发容器-1"><a href="#并发容器-1" class="headerlink" title="并发容器"></a>并发容器</h3><p>Map</p>
+<ul>
+<li>ConcurrentHashMap</li>
+<li>ConcurrentSkipListMap</li>
+</ul>
+<p>List</p>
+<ul>
+<li>CopyOnWriteArrayList</li>
+</ul>
+<p>Set</p>
+<ul>
+<li>CopyOnWriteArraySet</li>
+<li>ConcurrentSkipListSet</li>
+</ul>
+<h4 id="CopyOnWriteArrayList应用场景"><a href="#CopyOnWriteArrayList应用场景" class="headerlink" title="CopyOnWriteArrayList应用场景"></a>CopyOnWriteArrayList应用场景</h4><p>copyonwriteArrayList是java中的一种线程安全的list，他是一个可变的数组，支持并发读和写，与普通的arraylist不同，他的曲度操作不需要加锁，因为具有很高的并发性能。</p>
+<p>读取过程内部，其实就是复制原有数组，并且扩大容量，然后加入新的元素</p>
+<ol>
+<li>读多写少</li>
+<li>不需要实时更新的数据</li>
+</ol>
+<p><strong>缺点</strong> </p>
+<ol>
+<li>由于写操作的时候，需要拷贝数组 ，消耗内存，如果原数组的内容比较多的情况下，可能导致young gc或者full gc</li>
+<li>不能用于实时读的场景，像拷贝数组，新增元素都需要时间，所以调用一个set操作后，读取到的数据可能还是旧的，能做到最终一致性，但没法满足实时性要求。</li>
+<li>数据太多的话，容易引起故障</li>
+</ol>
+<h3 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h3><p>ConcurrentHashMap是java中线程安全的哈希表，他支持高并发并且能够同时进行读写操作。</p>
+<h4 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h4><p>java 1.7 之前是一个Segment数组 —（加锁）—&gt;    到一个Entry数组 ，entry数组后续接的是链表。<strong>（实现了一个写分散）</strong>   </p>
+<p>java1.8之后抛弃了Segment数组 变成了 数组+链表+红黑树的结构，在并发方面使用CAS和Syn保证数据的一致性</p>
+<h4 id="链表转红黑树的要求"><a href="#链表转红黑树的要求" class="headerlink" title="链表转红黑树的要求"></a>链表转红黑树的要求</h4><ol>
+<li> 链表的节点数量大于等于树化阈值8</li>
+<li>Node数组的长度大于等于最小树化容量值64</li>
+</ol>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><ol>
+<li>贡献数据的线程安全： 在多线程编程中，如果要进行共享数据的读写，可以使用ConcurrentHashMap保证线程安全</li>
+</ol>
+<h3 id="ConcurrentSkipListMap"><a href="#ConcurrentSkipListMap" class="headerlink" title="ConcurrentSkipListMap"></a>ConcurrentSkipListMap</h3><p>基于跳表实现的有序映射Map数据结构，实现了对TreeMap的兵法实现，适用于需要高并发性能，支持有序性和区间查询的场景。</p>
+<h3 id="电商场景中并发容器的选择"><a href="#电商场景中并发容器的选择" class="headerlink" title="电商场景中并发容器的选择"></a>电商场景中并发容器的选择</h3><h4 id="案例1-：-电商网站中记录一次活动下各个商品的售卖的数量"><a href="#案例1-：-电商网站中记录一次活动下各个商品的售卖的数量" class="headerlink" title="案例1 ： 电商网站中记录一次活动下各个商品的售卖的数量"></a>案例1 ： 电商网站中记录一次活动下各个商品的售卖的数量</h4><p>场景分析： 频繁按照商品id做get和set但是商品id的数量相对稳定不会频繁增删</p>
+<p>解决：</p>
+<p><strong>初级方案</strong> ：用HashMap 但会出现线程安全问题，出现数据丢失。</p>
+<p>选型： 用ConcurrentHashMap</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：多线程笔记</li>
+        <li>Post author：秋水</li>
+        <li>Create time：2024-06-22 21:58:36</li>
+        <li>
+            Post link：tai769.github.io2024/06/22/多线程笔记/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2024/07/02/PriorityQueue%E7%9A%84%E7%90%86%E8%A7%A3/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">PriorityQueue的理解</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2024/06/20/shuiclub%E4%B8%80%E6%9C%9F%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95%E5%B7%B2%E4%BB%A5%E5%8F%8A%E5%9B%9E%E7%AD%94/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">shuiclub一期面试问题记录已以及回答</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>&nbsp;-&nbsp;
+            
+            2024&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">秋水</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="nav-number">1.3.</span> <span class="nav-text">上下文切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%EF%BC%9A%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1IPC"><span class="nav-number">1.4.</span> <span class="nav-text">面试：进程之间的通信IPC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%92%8C%E5%B9%B6%E8%A1%8C"><span class="nav-number">1.5.</span> <span class="nav-text">并发和并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%90%AF%E5%8A%A8%E7%BA%BF%E7%A8%8B%E6%9C%89%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.6.</span> <span class="nav-text">新启动线程有几种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%BB%93%E6%9D%9F%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.7.</span> <span class="nav-text">线程结束的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.7.1.</span> <span class="nav-text">安全的方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E8%B0%83%E5%BA%A6"><span class="nav-number">1.8.</span> <span class="nav-text">线程的调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E9%94%81%E5%92%8C%E7%B1%BB%E9%94%81%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.9.</span> <span class="nav-text">对象锁和类锁的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile"><span class="nav-number">1.10.</span> <span class="nav-text">volatile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%95%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.10.1.</span> <span class="nav-text">试用场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E5%9D%97"><span class="nav-number">1.11.</span> <span class="nav-text">同步块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">1.12.</span> <span class="nav-text">ThreadLocal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal%E5%86%85%E9%83%A8%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="nav-number">1.13.</span> <span class="nav-text">ThreadLocal内部是如何实现的</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#ThreadLocalMap%E7%B1%BB"><span class="nav-number">1.13.0.0.1.</span> <span class="nav-text">ThreadLocalMap类</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal%E6%98%AF%E5%AE%9E%E7%8E%B0%E4%BF%9D%E8%AF%81%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%91%A2"><span class="nav-number">1.14.</span> <span class="nav-text">ThreadLocal是实现保证事务的呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal-%E5%9C%A8%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%8F%AF%E8%83%BD%E4%BC%9A%E4%BA%A7%E7%94%9F%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="nav-number">1.15.</span> <span class="nav-text">ThreadLocal 在运行过程中可能会产生内存泄漏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAS"><span class="nav-number">1.16.</span> <span class="nav-text">CAS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">1.17.</span> <span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CAS%E4%BC%9A%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%89%E4%B8%AA%E5%A4%A7%E9%97%AE%E9%A2%98"><span class="nav-number">1.17.1.</span> <span class="nav-text">CAS会出现的三个大问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8ECAS%E5%92%8CSyn%E5%9C%BA%E6%99%AF%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">1.17.2.</span> <span class="nav-text">关于CAS和Syn场景问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%E5%9C%A8%E5%A4%84%E7%90%86%E5%B9%B6%E5%8F%91%E6%9B%B4%E6%96%B0%E5%90%8C%E4%B8%80%E4%B8%AA%E6%95%B0%E5%80%BC%E6%97%B6%E7%A1%AE%E5%AE%9E%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%AF%BC%E8%87%B4%E5%86%99%E7%83%AD%E7%82%B9%E9%97%AE%E9%A2%98"><span class="nav-number">1.17.3.</span> <span class="nav-text">原子操作在处理并发更新同一个数值时确实可能会导致写热点问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java%E6%8F%90%E9%AB%98%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%E7%9A%84%E5%8A%9E%E6%B3%95"><span class="nav-number">1.18.</span> <span class="nav-text">java提高原子操作的办法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8ELongAdder%E5%92%8CAtmoicLong%E7%9B%B8%E6%AF%94"><span class="nav-number">1.18.1.</span> <span class="nav-text">关于LongAdder和AtmoicLong相比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LongAdder-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">1.19.</span> <span class="nav-text">LongAdder 的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LongAdder-%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-number">1.20.</span> <span class="nav-text">LongAdder 的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.21.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LongAdder-%E4%B8%8E-AtomicLong-%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">1.22.</span> <span class="nav-text">LongAdder 与 AtomicLong 的比较</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%9C%BA%E6%99%AF"><span class="nav-number">1.22.0.1.</span> <span class="nav-text">具体场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">1.23.</span> <span class="nav-text">线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%BB%E9%94%81"><span class="nav-number">1.24.</span> <span class="nav-text">死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">1.24.1.</span> <span class="nav-text">解决方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B4%BB%E9%94%81"><span class="nav-number">1.25.</span> <span class="nav-text">活锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E9%A5%A5%E9%A5%BF"><span class="nav-number">1.26.</span> <span class="nav-text">线程饥饿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E5%B9%B6%E5%8F%91"><span class="nav-number">1.27.</span> <span class="nav-text">高并发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AB%98%E5%B9%B6%E5%8F%91%E5%86%99"><span class="nav-number">1.27.1.</span> <span class="nav-text">高并发写</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81"><span class="nav-number">1.28.</span> <span class="nav-text">公平锁和非公平锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AC%E5%B9%B3%E9%94%81"><span class="nav-number">1.28.1.</span> <span class="nav-text">公平锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81"><span class="nav-number">1.28.2.</span> <span class="nav-text">非公平锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81"><span class="nav-number">1.29.</span> <span class="nav-text">可重入锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AD%89%E5%BE%85%E5%94%A4%E9%86%92%E6%9C%BA%E5%88%B6"><span class="nav-number">1.30.</span> <span class="nav-text">等待唤醒机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AQS"><span class="nav-number">1.31.</span> <span class="nav-text">AQS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E6%80%A7"><span class="nav-number">1.31.1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AQS%E8%8E%B7%E5%8F%96%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E9%98%BB%E5%A1%9E%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%98%AF%E5%A4%B4%E8%8A%82%E7%82%B9%E5%90%97"><span class="nav-number">1.31.2.</span> <span class="nav-text">AQS获取的下一个阻塞的线程是头节点吗</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E9%94%81ReadANdWrite"><span class="nav-number">1.32.</span> <span class="nav-text">读写锁ReadANdWrite</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E9%94%81%E7%9A%84%E5%88%A4%E6%96%AD%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81"><span class="nav-number">1.32.1.</span> <span class="nav-text">读写锁的判断以及如何实现可重入锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E9%94%81%E9%99%8D%E7%BA%A7"><span class="nav-number">1.32.2.</span> <span class="nav-text">读写锁降级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#StampedLock%E9%94%81"><span class="nav-number">1.32.3.</span> <span class="nav-text">StampedLock锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MESA"><span class="nav-number">1.33.</span> <span class="nav-text">MESA</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">并发容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E5%AE%B9%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">同步容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8-1"><span class="nav-number">2.2.</span> <span class="nav-text">并发容器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CopyOnWriteArrayList%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.2.1.</span> <span class="nav-text">CopyOnWriteArrayList应用场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConcurrentHashMap"><span class="nav-number">2.3.</span> <span class="nav-text">ConcurrentHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">2.3.1.</span> <span class="nav-text">底层原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E8%BD%AC%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E8%A6%81%E6%B1%82"><span class="nav-number">2.3.2.</span> <span class="nav-text">链表转红黑树的要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.3.3.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConcurrentSkipListMap"><span class="nav-number">2.4.</span> <span class="nav-text">ConcurrentSkipListMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B5%E5%95%86%E5%9C%BA%E6%99%AF%E4%B8%AD%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">2.5.</span> <span class="nav-text">电商场景中并发容器的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B1-%EF%BC%9A-%E7%94%B5%E5%95%86%E7%BD%91%E7%AB%99%E4%B8%AD%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E6%B4%BB%E5%8A%A8%E4%B8%8B%E5%90%84%E4%B8%AA%E5%95%86%E5%93%81%E7%9A%84%E5%94%AE%E5%8D%96%E7%9A%84%E6%95%B0%E9%87%8F"><span class="nav-number">2.5.1.</span> <span class="nav-text">案例1 ： 电商网站中记录一次活动下各个商品的售卖的数量</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
