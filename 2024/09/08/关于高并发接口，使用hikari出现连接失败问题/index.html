@@ -148,7 +148,7 @@
                     <div class="author">
                         <span class="name">秋水</span>
                         
-                            <span class="author-label">Lv4</span>
+                            <span class="author-label">Lv5</span>
                         
                     </div>
                     <div class="meta-info">
@@ -175,7 +175,9 @@
         
 
         <div class="article-content markdown-body">
-            <h3 id="Public-Key-Retrieval-is-not-allowed"><a href="#Public-Key-Retrieval-is-not-allowed" class="headerlink" title="Public Key Retrieval is not allowed"></a>Public Key Retrieval is not allowed</h3><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
+            <h3 id="Public-Key-Retrieval-is-not-allowed"><a href="#Public-Key-Retrieval-is-not-allowed" class="headerlink" title="Public Key Retrieval is not allowed"></a>Public Key Retrieval is not allowed</h3><p>mysql8的连接方式  caching_sha2_password </p>
+<p>mysql5.多的版本是 mysql_native_password</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
 <li><p>可以在连接字符串中通过 ServerRSAPublicKeyFile 指定服务器的 RSA 公钥。</p>
 <ol>
 <li><p>获取Mysql服务器的工钥，使用如下命令</p>
@@ -231,6 +233,21 @@
 
         
             <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2024/09/29/%E5%A4%A7key%E9%97%AE%E9%A2%98%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">大key问题怎么解决</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next">

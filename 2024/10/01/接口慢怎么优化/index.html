@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="秋水">
+    
+    <title>
+        
+            接口慢怎么优化 |
+        
+        qiushui‘s blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"tai769.github.io","root":"/","language":"en"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"知识，技能，心态"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                qiushui‘s blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">接口慢怎么优化</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">秋水</span>
+                        
+                            <span class="author-label">Lv5</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2024-10-01 14:27:32
+    </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="1-背景【多段大厂经历高级开发巨佬著作】"><a href="#1-背景【多段大厂经历高级开发巨佬著作】" class="headerlink" title="1. 背景【多段大厂经历高级开发巨佬著作】"></a>1. 背景【多段大厂经历高级开发巨佬著作】</h1><p>这个禁止抄袭！大佬亲笔写的！</p>
+<p>比如这个接口 就代码直接上数据库里扣 先不说缓存乱七八糟的 然后咱们再说 加什么 怎么优化</p>
+<p><code>ok</code> 那这个场景下 用户投诉慢了，或者你监控报警了</p>
+<p>咱就说 这个项目 是你刚接手的 你还不知道里面有啥 连个文档也没有 其他人都离职了</p>
+<p>咱们就假定 现在他里面只有一个数据库  你只知道 抢红包 一点 就慢了</p>
+<p>咱们先看怎么分析 然后再怎么往上加各种<code>redis</code>还是<code>mq</code>啥的</p>
+<p>第一件事 我得找到这个接口对吧</p>
+<p>那好 有2种情况 一种监控发现慢了，这种一般建立与咱们对这系统有所了解了，然后去看监控对吧。我说这个只是要说明 监控的几个指标，然后说完这个情况，咱们再按照啥也不知道情况下 怎么查</p>
+<p><code>监控里 有3个指标很重要 第一 qps 每秒请求数 第二rt 响应耗时  第三 eps error per second 就是异常的qps 或者是错误率 错误率就是异常qps除一下总qps算 这个很简单</code></p>
+<p>我们要对系统核心接口有个很明确的认识  你的<code>单机qps</code> 能抗多少流量 通过压测的手段，然后预期的 <code>rt</code> 是多少 能容忍多少 比如 <code>20ms</code> 以内</p>
+<p>然后大于 <code>20ms</code> 不管返回的是啥 我们都可以认为是异常 当然你返回异常错误 也算异常 比如<code>http code=5xx 4xx</code> 这些再不同 <code>qps</code> 的量上 都会有不同的表现 这<code>三个指标很重要</code></p>
+<p>好 再说我们对当前啥也不知道 就知道点<code>app</code>上的按钮或者页面按钮 直接1秒以上才返回成功 或者直接失败</p>
+<h1 id="2-第一件事就是抓包"><a href="#2-第一件事就是抓包" class="headerlink" title="2. 第一件事就是抓包"></a>2. 第一件事就是抓包</h1><p>对于<code>app</code>端 可以通过<code>charles proxyman</code>之类的抓 对于网页 可以<code>chrome</code>的<code>network</code>抓包 抓包 你能看到到底返回的错误码是啥 或者真正的耗时多久</p>
+<p>接口 有3个耗时指标要仔细看 第一 <code>dns</code>的耗时 第二 建立链接的耗时 第三首字节到达服务器并返回的耗时</p>
+<p>通常<code>http接口</code> 你可以<code>copy</code>一个<code>curl 命令</code>出来 进行重放 但是要注意是否有损 你接口没做幂等重放会不会有问题 比如脏数据</p>
+<p>包括curl命令 也能打印出上面说的不同阶段耗时</p>
+<h2 id="2-1-初步分析-DNS-以及路由问题"><a href="#2-1-初步分析-DNS-以及路由问题" class="headerlink" title="2.1. 初步分析 DNS 以及路由问题"></a>2.1. 初步分析 <code>DNS</code> 以及路由问题</h2><p>首先 你可能服务器一切正常 但是客户端就是慢 很有可能是因为<code>dns</code>慢  也有可能因为建立链接慢</p>
+<p>记得我之前说过 客户端请求打到你服务器 你作为个客户端 请求 <code>redis</code> 然后就一个端口 从你服务器到 <code>redis</code></p>
+<p><code>tcp</code> 链接四元组端口耗尽 导致选端口慢么</p>
+<p>其实这不也是客户端到服务器 发送数据之前的问题么  对于远端的服务器可能看着一切正常 但是客户端键连接慢 <code>dns</code>慢</p>
+<p>然后再看建联的 你抓包是能看出三次握手的 当然<code>chrome charles proxyman</code>是看不到的 可以用<code>tcpdump wireshark</code>  能很清楚看到 比如你三次握手 有重传 或者数据包来回慢 这都能看到</p>
+<p>![8dcf135779e76df541a6d33db9aee82](D:\Git\fanxy_knowledge_graph\Fanxy的学习笔记\8 面试场景题\1 一个红包接口慢怎么排查.assets\8dcf135779e76df541a6d33db9aee82.png)</p>
+<p>这里<code>dns</code>也能看到 咱假设 <code>dns</code>慢了 那没办法 让用户换<code>dns</code> 或者联系运营商  然后说三次握手 慢了 可能这个与服务器通信过程中 有路由丢包  </p>
+<p>好 既然你自己机器抓包能发现 用 <code>traceroute</code> 命令看 </p>
+<p>![f9016e27897a8c91aee728bc59e6695](D:\Git\fanxy_knowledge_graph\Fanxy的学习笔记\8 面试场景题\1 一个红包接口慢怎么排查.assets\f9016e27897a8c91aee728bc59e6695.png)</p>
+<p>这不经过多少都打出来了么 你看你要中间路由凉了 还是找运营商啥的</p>
+<h2 id="2-2-服务器响应是否慢？网卡问题？redis？"><a href="#2-2-服务器响应是否慢？网卡问题？redis？" class="headerlink" title="2.2. 服务器响应是否慢？网卡问题？redis？"></a>2.2. 服务器响应是否慢？网卡问题？<code>redis</code>？</h2><p>然后咱们再说假设路由过程一切正常 那可能你服务器响应慢了 或者你看你数据<code>response</code>慢 路由没问题 那就是你服务器慢</p>
+<p>好 现在咱们跟踪到服务器了 当然 大多数路由过程不会慢 所以很多人 直接查服务器 但是这属于所谓的街灯讹方法 就是说一个喝醉的酒鬼 钥匙丢了 他只记得好像在有光的地方掏出钥匙 随后就没了 那他就跑到各个街灯下面找钥匙 这不对吧</p>
+<p>再说服务器握手重传或者耗时慢 如果你熟悉 或者看我前两天发的<code>epoll</code>和同步阻塞区别 开始不是说了怎么收数据包的么 </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">网卡收到数据 -&gt; 拷贝到ringbuffer -&gt; 发硬中断 -&gt; 硬中断标记软中断位 -&gt; </span><br><span class="line">ksoftirq内核线程 轮训软中断位 -&gt; 摘ringbuffer数据封装成内核结构体skb -&gt; 送给协议层处理</span><br></pre></td></tr></table></figure>
+
+<p>送协议层之前还有<code>tcpdump</code>抓包的点 到协议层 先是ip层 然后tcp层 咱说抓包看到tcp握手重传了 或者慢了 是不是理论上 到协议层tcp这层 之前的都会有问题</p>
+<p> 网卡一般不是瓶颈，如果你怀疑是，你可以用 <code>ethtool</code> 查网卡是否开启多队列 没开 给他开了 再观察</p>
+<p>然后协议拆包 是个耗费 <code>cpu</code> 的事情 你用 <code>top命令</code> 或者  <code>vmstat</code> 你观察一段时间 比如半分钟 你发现内核耗时高 硬中断也高 证明很可能请求太多 你可以看看网卡拆包 <code>RXO</code> 开没开 也能用<code>ethtool</code>配置 让网卡帮你把拆包给干了 让<code>cpu</code>做其他事 让网卡帮你把拆包给干了 让<code>cpu</code>做其他事 然后硬中断和拷贝到<code>ringbbuffer</code> 一般没啥可干预的</p>
+<p><code>kosftirq</code>内核线程 你有几个<code>cpu</code>逻辑核 就有几个线程 但是我们碰上不知道线上哪个<code>2b</code>把 <code>ksoftirq</code>的<code>balance</code>服务给关了 导致就特么一个核在那处理网卡 死慢死慢的 改这玩意的 很可能那机器上 曾经用过<code>Redis</code></p>
+<p>因为<code>redis</code>单线程的吧 给CPU绑核 <code>taskset</code> <code>redis</code> 的 <code>pid</code> 固定到一个核上 让<code>l1 l2</code>缓存热 命中率非常高 速度会更快 这时候 你的网卡如果也在一个核上 是不是就更快了</p>
+<p>上面那些 其实大部分没必要排查 只是说 你这么配置上了 会快 理论上 线上机器应该都配置好了</p>
+<p>就说三次握手慢啊 然后到协议层拆包 内核基本这块没啥bug了 所以慢 有2个原因 第一 你<code>backlog</code> 配置太小了 第二 你重传定时是不是整大了  第三 查查你端口 是不是真有那种耗尽了</p>
+<p>就是第三个 一般不太会出现  因为你是客户端请求 比如<code>app</code>或者<code>浏览器</code> 四元组都是不同的  第二个 重传不是问题 问题是你给整大了 这个一般也没人调 都是用系统默认的参数  所以你可以看看是不是第一个</p>
+<p>有很多人编程的时候不知道<code>backlog</code>到底咋传 这个你可以当个问题 你自己去查查这玩意到底咋用 里面涉及到<code>systctl</code>的一些配置</p>
+<p>三次握手 常见的问题 就是这样 比如你配置的问题 你链接太多了 <code>netstat</code>一查 好几十万个</p>
+<p>链接太多了 你是要扩容不 或者你仔细想想 是不是你服务代码处理的太慢了 导致客户端请求积压了 更多的请求过来 一直排着呢</p>
+<h1 id="3-接口慢"><a href="#3-接口慢" class="headerlink" title="3. 接口慢"></a>3. 接口慢</h1><h2 id="3-1-网络IO排查"><a href="#3-1-网络IO排查" class="headerlink" title="3.1. 网络IO排查"></a>3.1. 网络IO排查</h2><p>然后再说你接口慢 你从抓包看返回耗时 是能看出来的 然后咱说 发现接口慢了 你抓包是不是能看到你请求哪个接口 你即使是没文档 没人告诉你 你总能去代码搜吧  但是你光看代码 你肉眼看啥时候去  而且不同请求参数 很可能走不通代码分支 通常啊 我们认为 磁盘<code>io</code> 网络<code>io</code>是最慢的 </p>
+<p><strong>但是咱们也不能拍脑门就说这接口慢 一定是有<code>io</code>导致的</strong> </p>
+<p>那不又成酒鬼找钥匙了么 咱说慢 对慢这个得下个定义 刚才说监控里rt 里 能容忍20ms 咱们对接口的耗时有了个定义 那咱对代码耗时是不是也得有个定义</p>
+<p>我列一下 不用记住 这玩意不好记，都是估计值 有浮动但是不会太大</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1个cpu周期 就是执行指令 0.3ns</span><br><span class="line">L1缓存 0.9ns-1ns</span><br><span class="line">L2缓存 2.5ns-2.8ns</span><br><span class="line">L3缓存 12.5ns-13ns</span><br><span class="line">cpu到内存 120ns</span><br><span class="line">固态硬盘 50-150微妙（记得我之前说的随机读写和顺序读写么，这个范围就很大了吧）</span><br><span class="line">机械磁盘 1-10ms（同上）</span><br><span class="line">公网网络传输 10ms以上 那就没准了 上百都有 比如从中国到纽约</span><br><span class="line">tcp重传 1-3s</span><br><span class="line">函数调用 java的我没统计过 c的大概0.4ns 系统调用（分内核版本，因为老版本用int 0x80中断，新的内核用的intel的sysenter）大概是200ns多的是十几微妙</span><br></pre></td></tr></table></figure>
+
+<p>这时候对你代码里能用的耗时有定义了吧</p>
+<p>一般是<code>io</code>慢 其他的可以忽略 你要真感觉你代码指令慢 你可以用<code>perf</code>命令查</p>
+<p>然后再说咱这接口 找到了 但是就是慢 不能光肉眼看代码猜 可以用<code>arthas</code>的<code>perf</code>命令去查 挨个调用跟踪 也可以打火焰图 跟踪下来你就知道哪里慢了 先不说是<code>gc</code>的事 因为<code>gc</code>是额外的 你代码调用路径慢 你一目了然了</p>
+<p>火焰图有2种 一种<code>onlinecpu</code> 一种<code>offlinecpu</code> <code>onlinecpu</code>你能看出来你代码哪里慢了 <code>offlinecpu</code> 是让你看到 你代码放弃执行权限后 哪里慢了 比如你做<code>io</code> 内核给你线程挂起了 <code>io</code>里面慢</p>
+<h2 id="3-2-GC排查"><a href="#3-2-GC排查" class="headerlink" title="3.2. GC排查"></a>3.2. GC排查</h2><p>内存不够了 堆内存 <code>fullgc stw</code> 直接卡你业务线程 </p>
+<p>拉<code>gc</code>日志 <code>gceasy在线网站</code> <code>heaphero 在线网站</code> <code>perfma社区在线网站</code>  </p>
+<p>如果怕泄露服务器信息啥的 用<code>gcviwer离线的</code></p>
+<p>也可以自己肉眼看 <code>gclog</code></p>
+<p>发现了频繁<code>fullgc</code>  怎么算频繁 面试总会问 那玩意一周有一次还算合理</p>
+<p>你要发现1分钟1次 几秒钟1次 那肯定频繁了 你服务肯定卡 你<code>cpu</code>肯定上来 </p>
+<p>然后你就得分析堆内存了 <code>jmap</code> <code>dump</code> 我白天说了咋<code>dump</code>了吧</p>
+<p>抢救现场 一定要快 不能等<code>dump</code>文件拉下来再用 <code>mat</code> 打开 太慢了</p>
+<p><code>dump</code>文件咱拿出来了 用<code>mat</code>打开 里面有2个关键的指标 <code>shallow</code> <code>heap</code> 和<code>reteent</code> <code>heap</code> 没记错好像是这么拼的</p>
+<p>所谓的深堆和潜堆 这俩 你们自己看 是啥玩意</p>
+<p>除了堆 还有<code>stackoverflow</code>问题 这个一般就直接返回错误了 这不是慢 这个就很明显了  因为有异常信息</p>
+<p>主要是另外一个问题  我之前在群里问过 死锁 活锁 死循环 哪个会把CPU打满  这是关系到你接口慢不慢</p>
+<p>死锁不会打满<code>cpu</code> 为啥 内核都给线程挂起了 或者<code>jvm</code>给放等待队列了 都不工作了</p>
+<p><code>cpu</code>不会满 只会非常低 比平常要低 你的服务还请求不动</p>
+<p>死循环不一定会高  大部分会  死循环耗费<code>cpu</code>在于你里面别的代码动作 如果你是个单核的 会占满<code>cpu</code>你要多核呢</p>
+<p><code>windows</code>早期内核调度器 一个任务死循环直接给机器干死了  <code>Linux</code> 不会 </p>
+<p>如果后台接口的超时时间无限长，是不是浏览器请求接口就会一直请求 直到后台response或者报错?</p>
+<p>差不多 有默认超时时间的</p>
+<p><code>mat</code> <code>jmap</code> <code>jstack</code> <code>arthas</code> <code>jstat</code> <code>jcmd</code>  这都是常用的工具 看<code>gclog</code></p>
+<p><code> jvm</code>一般性的问题 都可以用这些查出来 <code>jcmd</code>甚至可以查堆外内存泄露</p>
+<p>但是<code>top</code> <code>vmstat</code> 这些 指标有很多不一样 内存不够 <code>gc</code>上手干活了 但是还有直接<code>oom</code></p>
+<p><code>jvm</code>能扛得住的时候 <code>oom</code>会<code>dump文件</code> 出来 或者一些让<code>jvm</code>死的<code>error</code> 也都会打<code>crash日志</code>出来</p>
+<p>分析那个日志 也是有讲究的  <code>dump文件</code> 用<code>mat</code> / 而 <code>crash日志</code> 要么肉眼看  要么用工具</p>
+<p>扛不住 没等<code>gc</code>干活 <code>oomkiller</code>就上手了  你连<code>crash</code> 和  <code>dump</code> 都可能没有 尤其是容器  内核的肯定是不关心你的<code>oom</code>问题，肯定不会有详细的日志，他只关心他能做的保底策略 <code>syslog</code>里打的肯定没<code>jvm</code>的多 <code>jvm</code>不一样  他拦截了信号 拦住再打</p>
+<p>内核的 <code>oomkiller</code> 会在 <code>syslog</code> 中打出来日志    当然这都挂了 就不只是接口慢了 </p>
+<p>正常情况下 你<code>new</code>一个对象 <code>jvm</code>调<code>glibc</code>的<code>malloc</code> 这时候没分配内存呢 只是分配了个虚拟地址空间的范围 <code>vma</code>结构</p>
+<p>问题是内核 <code>oomkiller</code> 强制杀了你 他也没你内存对象结构 他只能给你空间范围 继续说内存分配 <code>vma</code> 只有你在操作写的时候 才会做分配内存动作</p>
+<p>分配不够 内核回收<code>pagecache</code>和<code>block buffer</code> 如果回收不了  有<code>swap</code>分区或者<code>swap</code>文件 上<code>swap</code>写 这时候你的接口就慢了</p>
+<p>毕竟是磁盘操作  如果<code>swap</code>没有 直接<code>oomkiller</code>杀你进程</p>
+<p>好 目前能把一般性的接口慢 说差不多了</p>
+<h1 id="4-落实到抢红包业务"><a href="#4-落实到抢红包业务" class="headerlink" title="4. 落实到抢红包业务"></a>4. 落实到抢红包业务</h1><p>如果不是<code>gc</code> 不是内存 不是握手 不是dns乱七八糟的 就单纯业务代码的问题 </p>
+<p>你用<code>arthas</code> <code>profile</code> 是不是就能看出来了</p>
+<p>你就能发现 是开多线程加速 还是用<code>mq</code> 还是用<code>redis</code></p>
+<p>这些方案 不就是自然而然就能想到了</p>
+<p>你发现<code>netstat</code>一查 单机<code>qps</code>太多了 是不是得考虑上负载均衡 加机器</p>
+<p>你一查 <code>profile</code> 里打的操作数据库 慢  是不是可以优化 <code>sql</code> 了</p>
+<p>或者是不是可以上 <code>redis</code> 或者 <code>mq</code> 了</p>
+<p>就是能先优化就优化 真达到瓶颈了 再改架构  你引入<code>redis</code>引入<code>mq</code> 是不是引入了成本 学习成本和机器部署成本</p>
+<p>你是不是得改造你的架构和代码 磁盘慢了 <code>iostat</code>能看 是<code>iops</code>太高导致的 排队 还是就是读写慢 机械磁盘么 是的话 能不能异步写 能不能顺序追加写</p>
+<p>实在不行换固态行不 但是引入成本  现在的企业 宁可耗费大人力改造 也不希望花钱  数据库慢 好 读的慢 慢查询优化 索引 这些老生常谈</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">写的慢 第一 考虑buffer pool能不能调大  第二 考虑binlog和redlog刷盘配置能不能改 第三 考虑master是不是到达瓶颈了  第四 观察锁 是不是锁导致排队了 有没有死锁 第五 有没有别的任务 比如备份数据库 或者数据库服务器上还部署了其他的导致的 第六 查数据库的磁盘io  第七 你的索引是不是创建不合理 数据库在大量的写的情况下 频繁更新索引</span><br></pre></td></tr></table></figure>
+
+<p>网络<code>io</code>慢 排查思路就是上面那些 因为还是你服务器此时作为了一个客户端</p>
+<p>当然数据库锁 还有那些什么大事务不释放占用你资源、慢查询拖垮整个库、你写呢 有大哥在那改索引 改表结构啥的（虽然有<code>onlineddl</code> 但是也有不是<code>online</code>的）、或者有大哥直接给你锁表了</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>Post title：接口慢怎么优化</li>
+        <li>Post author：秋水</li>
+        <li>Create time：2024-10-01 14:27:32</li>
+        <li>
+            Post link：tai769.github.io2024/10/01/接口慢怎么优化/
+        </li>
+        <li>
+            Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2024/09/29/%E5%A4%A7key%E9%97%AE%E9%A2%98%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">大key问题怎么解决</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span>&nbsp;-&nbsp;
+            
+            2024&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">秋水</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E8%83%8C%E6%99%AF%E3%80%90%E5%A4%9A%E6%AE%B5%E5%A4%A7%E5%8E%82%E7%BB%8F%E5%8E%86%E9%AB%98%E7%BA%A7%E5%BC%80%E5%8F%91%E5%B7%A8%E4%BD%AC%E8%91%97%E4%BD%9C%E3%80%91"><span class="nav-number">1.</span> <span class="nav-text">1. 背景【多段大厂经历高级开发巨佬著作】</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E7%AC%AC%E4%B8%80%E4%BB%B6%E4%BA%8B%E5%B0%B1%E6%98%AF%E6%8A%93%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text">2. 第一件事就是抓包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%88%9D%E6%AD%A5%E5%88%86%E6%9E%90-DNS-%E4%BB%A5%E5%8F%8A%E8%B7%AF%E7%94%B1%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. 初步分析 DNS 以及路由问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%93%8D%E5%BA%94%E6%98%AF%E5%90%A6%E6%85%A2%EF%BC%9F%E7%BD%91%E5%8D%A1%E9%97%AE%E9%A2%98%EF%BC%9Fredis%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. 服务器响应是否慢？网卡问题？redis？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%8E%A5%E5%8F%A3%E6%85%A2"><span class="nav-number">3.</span> <span class="nav-text">3. 接口慢</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E7%BD%91%E7%BB%9CIO%E6%8E%92%E6%9F%A5"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. 网络IO排查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-GC%E6%8E%92%E6%9F%A5"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. GC排查</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E8%90%BD%E5%AE%9E%E5%88%B0%E6%8A%A2%E7%BA%A2%E5%8C%85%E4%B8%9A%E5%8A%A1"><span class="nav-number">4.</span> <span class="nav-text">4. 落实到抢红包业务</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

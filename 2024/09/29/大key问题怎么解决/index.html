@@ -9,7 +9,7 @@
     
     <title>
         
-            mvc的流程 |
+            大key问题怎么解决 |
         
         qiushui‘s blog
     </title>
@@ -136,7 +136,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">mvc的流程</span>
+            <span class="title-hover-animation">大key问题怎么解决</span>
         </div>
 
         
@@ -154,7 +154,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i>&nbsp;2024-04-02 20:31:06
+        <i class="fas fa-edit"></i>&nbsp;2024-09-29 22:56:49
     </span>
     
     
@@ -175,40 +175,12 @@
         
 
         <div class="article-content markdown-body">
-            <ol>
-<li><p>客户端向web服务器（tomcat等) 发送一个http请求，web服务器对http请求进行解析，解析后的url地址如果匹配到DispatchServlet的映射路径（通过web.xml重的Servlet-mapping配置），web容器会将请求交给DIspatchServlet处理</p>
+            <h3 id="redis大key问题怎么解决"><a href="#redis大key问题怎么解决" class="headerlink" title="redis大key问题怎么解决"></a>redis大key问题怎么解决</h3><ol>
+<li><p>分key</p>
 </li>
-<li><p>DispatcherServlet接收到请求后，在对URL进行解析，得到请求资源标识符URI，然后调用相应的方法获得handler对象以及它对应的拦截器。（在这里只是获得了Handler对象，并不会操作它，在SpringMVC中，是通过HandlerAdapter对Handler进行调用、控制的）</p>
+<li><p>压缩算法或者 序列化算法压缩</p>
+<p>pb是最合适的 压缩比最高的</p>
 </li>
-<li><p>DIspatcherServlet根据得到的Handler对象，选择一个合适的HandlerAdapter，创建其实例对象，执行拦截器中的preHandler()方法。</p>
-</li>
-<li><p>在拦截器方法中，提取请求中的数据模型，填充Handler入参，然后执行handler</p>
-</li>
-<li><p>handler执行完毕后返回一个ModelAndView对象给DispatcherServle。</p>
-</li>
-<li><p>通过ModelAndView只是一个逻辑视图，并不是真正的视图，DispatcherServlet通过ViewResolver视图解析器将逻辑视图转化为真正的视图。</p>
-</li>
-<li><p>DispatcherServlet通过Model将ModelAndView中得到的处数据解析后用于渲染视图，最后将视图通过http相应返回客户端。</p>
-</li>
-</ol>
-<p>关于HandlerInterceptor定义了三个接口的调用方法</p>
-<ol>
-<li>prehandle，该方法在调用Controller方法请求之前被调用。用途：进行预处理，权限检查，日志记录。</li>
-<li>posthandler ， 该方法在控制器方法请求之后，DispatcherServlet进行视图返回渲染之前被调用。可以对模型中的视图进一步加工或者修改，比如添加公共数据，或者调整返回的视图</li>
-<li>aferCompletion 该方法在整个请求结束之后，也就是在DispatcherServlet渲染视图之后执行。用户进行资源清理工作或者对整个请求处理的最后日志记录等。</li>
-</ol>
-<p>关于整体流程：</p>
-<ol>
-<li><strong>请求到达DispatcherServlet</strong>。</li>
-<li>DispatcherServlet调用preHandle方法。<ul>
-<li>如果<code>preHandle</code>返回<code>false</code>，请求处理流程中断，直接跳转到步骤5。</li>
-<li>如果<code>preHandle</code>返回<code>true</code>，流程继续。</li>
-</ul>
-</li>
-<li><strong>执行控制器方法</strong>：DispatcherServlet将请求委托给相应的控制器处理。</li>
-<li><strong>调用<code>postHandle</code>方法</strong>（仅当<code>preHandle</code>返回<code>true</code>）。</li>
-<li><strong>视图渲染</strong>：DispatcherServlet渲染视图。</li>
-<li><strong>调用<code>afterCompletion</code>方法</strong>：完成所有请求处理后，进行清理工作。</li>
 </ol>
 
         </div>
@@ -217,11 +189,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：mvc的流程</li>
+        <li>Post title：大key问题怎么解决</li>
         <li>Post author：秋水</li>
-        <li>Create time：2024-04-02 20:31:06</li>
+        <li>Create time：2024-09-29 22:56:49</li>
         <li>
-            Post link：tai769.github.io2024/04/02/mvc的流程/
+            Post link：tai769.github.io2024/09/29/大key问题怎么解决/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -238,13 +210,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2024/04/02/ModelAndView-Map-%E5%92%8CModelMap%E7%9A%84%E5%8C%BA%E5%88%AB/"
+                           href="/2024/10/01/%E6%8E%A5%E5%8F%A3%E6%85%A2%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">ModelAndView Map 和ModelMap的区别</span>
+                                <span class="post-nav-title-item">接口慢怎么优化</span>
                                 <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
@@ -254,10 +226,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2024/03/28/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E7%9A%84%E9%97%AE%E9%A2%98/"
+                           href="/2024/09/08/%E5%85%B3%E4%BA%8E%E9%AB%98%E5%B9%B6%E5%8F%91%E6%8E%A5%E5%8F%A3%EF%BC%8C%E4%BD%BF%E7%94%A8hikari%E5%87%BA%E7%8E%B0%E8%BF%9E%E6%8E%A5%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">前后端分离的问题</span>
+                                <span class="post-nav-title-item">关于高并发接口，使用hikari出现连接失败问题</span>
                                 <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -380,7 +352,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E5%A4%A7key%E9%97%AE%E9%A2%98%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3"><span class="nav-number">1.</span> <span class="nav-text">redis大key问题怎么解决</span></a></li></ol>
     </div>
 </div>
         </aside>
